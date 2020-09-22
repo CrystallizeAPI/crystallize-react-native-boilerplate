@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, FlatList, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import Product from 'components/product-microformat';
 import Document from 'components/document-microformat';
 const renderType = (item) => {
@@ -16,7 +16,9 @@ const renderItems = ({item}) => {
   if (!item.columns.length) {
     return null;
   }
-  if (item.columns.length === 1) renderType(item.columns?.[0]);
+  if (item.columns.length === 1) {
+    renderType(item.columns?.[0]);
+  }
 
   return (
     <View

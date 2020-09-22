@@ -12,7 +12,7 @@ import query from './query';
 
 const Product = ({navigation, route}) => {
   const [chosenVariant, setChosenVariant] = useState(null);
-
+  console.log('router', route);
   const [{fetching, error, data}] = useQuery({
     query: query,
     variables: {

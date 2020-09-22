@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import 'react-native-gesture-handler';
 import {Provider, createClient} from 'urql';
 
@@ -7,8 +9,7 @@ import Home from './src/home/index';
 import Catalogue from './src/catalogue/index';
 import Product from './src/product/index';
 import Article from './src/article/index';
-import * as React from 'react';
-import {StatusBar} from 'react-native';
+import Search from './src/search/index';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,7 @@ const stackStyling = {
     fontSize: 18,
   },
 };
+
 const App = () => {
   return (
     <>
@@ -60,6 +62,25 @@ const App = () => {
                   headerBackTitleVisible: false,
                   ...stackStyling,
                 };
+              }}
+            />
+            <Stack.Screen
+              name="Search"
+              component={Search}
+              options={{
+                headerTitle: '',
+                headerTransparent: true,
+                headerBackTitleVisible: false,
+                headerStyle: {
+                  backgroundColor: 'transparent',
+                  position: 'absolute',
+                  zIndex: 100,
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  ...stackStyling.headerStyle,
+                },
+                ...stackStyling,
               }}
             />
             <Stack.Screen

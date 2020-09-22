@@ -1,15 +1,7 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Button,
-  FlatList,
-  Text,
-  Image,
-} from 'react-native';
+import {StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 
 const Card = ({item, ...rest}) => {
   const navigation = useNavigation();
@@ -22,7 +14,7 @@ const Card = ({item, ...rest}) => {
       <Image
         style={styles.image}
         source={{
-          uri: image.url,
+          uri: image?.url,
         }}
       />
       <Text style={styles.title}>{item.name}</Text>

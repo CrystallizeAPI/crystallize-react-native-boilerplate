@@ -1,14 +1,24 @@
+import React from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  FlatList,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+
 import {useQuery} from 'urql';
-import React, {useEffect, useState} from 'react';
 import Loading from 'components/loading';
-import {View, Text, ScrollView, FlatList, SafeAreaView} from 'react-native';
 import Grid from 'components/grid';
 import query from './query';
 import Card from 'components/category-microformat';
 import styles from './styles';
 
-const Home = ({navigation, route, ...rest}) => {
-  console.log(navigation);
+const Home = ({route}) => {
+  const navigation = useNavigation();
+
   const [{fetching, error, data}] = useQuery({
     query: query,
     variables: {
@@ -16,14 +26,18 @@ const Home = ({navigation, route, ...rest}) => {
       path: '/shop',
     },
   });
+
   if (fetching) {
     return <Loading />;
   }
   if (error) {
     console.log('error', error);
     return (
-      <View>
-        <Text>Something went wrong</Text>
+      <View
+        style={{
+          paddingVertical: 200,
+        }}>
+        <Text style={{textAlign: 'center'}}>Something went wrong</Text>
       </View>
     );
   }
@@ -31,9 +45,21 @@ const Home = ({navigation, route, ...rest}) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Text style={styles.title}>Welcome</Text>
+        <View style={styles.header}>
+          <Text style={styles.title}>Welcome</Text>
+
+          <TouchableOpacity
+            style={styles.searchAction}
+            onPress={() => navigation.navigate('Search')}>
+            <Image
+              style={styles.searchIcon}
+              source={require('assets/images/search.png')}
+            />
+          </TouchableOpacity>
+        </View>
+
         <FlatList
-          data={folder.children}
+          data={folder?.children}
           renderItem={(item) => <Card {...item} />}
           keyExtractor={(item) => item.id}
           horizontal={true}

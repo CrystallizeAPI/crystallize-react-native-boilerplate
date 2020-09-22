@@ -24,7 +24,6 @@ const ProductCard = ({item}) => {
     : {};
 
   image = i;
-
   return (
     <TouchableOpacity
       style={{...styles.btn, flex: 1}}
@@ -32,7 +31,7 @@ const ProductCard = ({item}) => {
       <Image
         style={styles.image}
         source={{
-          uri: image.url,
+          uri: image?.url,
         }}
       />
       <View style={styles.footer}>

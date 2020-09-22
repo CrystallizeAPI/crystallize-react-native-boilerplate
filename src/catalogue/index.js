@@ -31,7 +31,7 @@ const Catalogue = ({navigation, route}) => {
     <View style={styles.container}>
       {/* <Text style={styles.title}>Welcome</Text> */}
       <FlatList
-        data={folder.children}
+        data={folder?.children}
         renderItem={(item) => <ProductCard {...item} />}
         keyExtractor={(item) => item.id}
         numColumns={2}

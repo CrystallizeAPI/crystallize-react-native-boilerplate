@@ -18,7 +18,7 @@ const Document = ({item, ...rest}) => {
           <Image
             style={styles.image}
             source={{
-              uri: image.url,
+              uri: image?.url,
             }}
           />
           <View style={styles.overlay}>
@@ -28,12 +28,6 @@ const Document = ({item, ...rest}) => {
       ) : (
         <Text style={styles.title}>{item.name}</Text>
       )}
-
-      {/* <View style={styles.footer}>
-        <Text style={styles.title}>{name}</Text>
-        <Text style={styles.price}>${price}</Text>
-      </View>
-       */}
     </TouchableOpacity>
   );
 };
