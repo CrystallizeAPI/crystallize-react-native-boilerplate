@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import 'react-native-gesture-handler';
 import {Provider, createClient} from 'urql';
-import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';

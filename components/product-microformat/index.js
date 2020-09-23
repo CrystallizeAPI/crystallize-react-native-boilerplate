@@ -1,15 +1,7 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Button,
-  FlatList,
-  Text,
-  Image,
-} from 'react-native';
+import {View, TouchableOpacity, Text, Image} from 'react-native';
 
 import styles from './styles';
 

@@ -1,6 +1,6 @@
 import {useQuery} from 'urql';
 import React from 'react';
-import {View, Text, FlatList, Image} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import Loading from 'components/loading';
 
 import styles from './styles';

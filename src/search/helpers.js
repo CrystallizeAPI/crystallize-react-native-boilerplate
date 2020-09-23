@@ -40,8 +40,7 @@ const defaultSpec = {
   filter: {},
 };
 
-// eslint-disable-next-line no-unused-vars
-export function urlToSpec({query, asPath}) {
+export function urlToSpec({query}) {
   const spec = {
     ...defaultSpec,
   };
@@ -69,7 +68,6 @@ export function urlToSpec({query, asPath}) {
       }),
       ...(filter && {filter}),
     };
-    // eslint-disable-next-line no-empty
   } catch (error) {}
 
   return spec;

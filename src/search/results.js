@@ -12,7 +12,7 @@ const routingType = {
 const ResultLine = ({item, index}) => {
   const navigation = useNavigation();
   const {
-    node: {name, id, type, path},
+    node: {name, type, path},
   } = item;
   return (
     <TouchableOpacity
