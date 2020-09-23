@@ -125,6 +125,8 @@ const App = () => {
               initialRouteName="App"
               drawerPosition="right"
               drawerType="back"
+              drawerStyle={{width: '85%'}}
+              overlayColor="transparent"
               drawerContent={BasketSidebar}>
               <Drawer.Screen name="App" component={AppNavigation} />
             </Drawer.Navigator>

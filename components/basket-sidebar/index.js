@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-} from 'react-native';
-import {useBasket, TinyBasket} from './../basket/index';
+import {Text, TouchableOpacity, StyleSheet, SafeAreaView} from 'react-native';
+import {TinyBasket} from './../basket/index';
 
-const BasketSidebar = ({...props}) => {
+const BasketSidebar = () => {
   return (
     <SafeAreaView style={styles.outer}>
       <Text style={styles.header}>Cart</Text>
@@ -28,7 +22,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'space-between',
-    backgroundColor: '#fff',
+    backgroundColor: '#EFEFEF',
   },
   header: {
     paddingVertical: 25,

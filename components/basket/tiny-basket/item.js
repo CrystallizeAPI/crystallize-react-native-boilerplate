@@ -1,12 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-// import AttributeList from 'components/attribute-list';
-// import {CurrencyValue} from 'components/currency-value';
 
 export default function TinyBasketItem({actions, item}) {
-  // const {attributes, addItemTime} = item;
-
   function increment() {
     actions.incrementItem(item);
   }
@@ -18,7 +14,6 @@ export default function TinyBasketItem({actions, item}) {
   function remove() {
     actions.removeItem(item);
   }
-  console.log('item', item);
   return (
     <View style={styles.outer}>
       <View style={styles.info}>
@@ -31,85 +26,70 @@ export default function TinyBasketItem({actions, item}) {
         <View>
           <Text style={styles.itemName}>{item.name}</Text>
           <Text style={styles.itemPrice}>$ {item.price?.gross}</Text>
-        </View>
-        <View style={styles.qtyOuter}>
-          <TouchableOpacity>
-            <Text>+</Text>
-          </TouchableOpacity>
-          <Text>{item.quantity}</Text>
-          <TouchableOpacity>
-            <Text>-</Text>
-          </TouchableOpacity>
+          <Text>Qty: {item.quantity}</Text>
         </View>
       </View>
+      <View style={styles.actions}>
+        <TouchableOpacity style={styles.actionBtn} onPress={() => remove()}>
+          <Text style={styles.removeBtnTxt}>✕</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.actionBtn} onPress={() => increment()}>
+          <Text> ↑</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.actionBtn}
+          onPress={() => decrement()}
+          disabled={item.quantity === 1}>
+          <Text> ↓</Text>
+        </TouchableOpacity>
+      </View>
     </View>
-    // <Item>
-    //   <ItemImage {...item.images?.[0]} />
-    //   <ItemInfo>
-    //     <Row>
-    //       <ItemName>{item.name}</ItemName>
-    //       {attributes?.length > 0 && <AttributeList attributes={attributes} />}
-    //     </Row>
-
-    //     <PriceWrapper>
-    //       <PriceWrap>
-    //         <Price>
-    //           <CurrencyValue value={item.price?.gross} />
-    //         </Price>
-    //       </PriceWrap>
-
-    //       <PriceVat>
-    //         <span>{t('common.vat', {value: item.price?.vat})}</span>
-    //       </PriceVat>
-    //     </PriceWrapper>
-    //   </ItemInfo>
-    //   <div>
-    //     <ItemQuantityChanger>
-    //       <button
-    //         onClick={decrement}
-    //         type="button"
-    //         disabled={item.quantity === 1}>
-    //         -
-    //       </button>
-    //       <ItemQuantity>{item.quantity}</ItemQuantity>
-    //       <button onClick={increment} type="button">
-    //         +
-    //       </button>
-    //     </ItemQuantityChanger>
-    //   </div>
-    //   <ItemDelete onClick={remove}>{t('basket.removeItem', item)}</ItemDelete>
-    // </Item>
   );
 }
 
 const styles = StyleSheet.create({
   outer: {
-    borderBottomWidth: 0.8,
     paddingVertical: 10,
+    marginBottom: 4,
+    borderRadius: 8,
+    backgroundColor: '#fff',
     borderBottomColor: '#dfdfdf',
+    flexDirection: 'row',
   },
   image: {
-    width: 60,
-    height: 60,
+    width: 100,
+    height: 100,
     marginRight: 20,
     backgroundColor: '#fff',
-    // borderWidth: 0.8,
     borderColor: '#dfdfdf',
     borderRadius: 4,
     resizeMode: 'contain',
   },
   info: {
+    flexGrow: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    paddingBottom: 10,
   },
   itemName: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '600',
   },
   itemPrice: {
-    fontSize: 14,
+    fontSize: 16,
   },
-  qtyOuter: {
-    borderWidth: 1,
+  actions: {
+    width: 50,
+    borderColor: '#dfdfdf',
+    alignItems: 'stretch',
+    justifyContent: 'space-around',
+  },
+  actionBtn: {
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  removeBtnTxt: {
+    color: 'red',
   },
 });

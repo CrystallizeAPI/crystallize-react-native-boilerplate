@@ -26,6 +26,7 @@ export function TinyBasket() {
         data={cart}
         renderItem={(item) => <TinyBasketItem {...item} actions={actions} />}
       />
+      <Totals />
     </View>
   );
 }
