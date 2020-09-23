@@ -5,6 +5,7 @@ import isEqual from 'lodash/isEqual';
 
 import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import Loading from 'components/loading';
+import {useBasket} from 'components/basket/index';
 
 import VariantSelector from './variant-selector';
 import styles from './styles';
@@ -12,7 +13,8 @@ import query from './query';
 
 const Product = ({navigation, route}) => {
   const [chosenVariant, setChosenVariant] = useState(null);
-  console.log('router', route);
+  const basket = useBasket();
+
   const [{fetching, error, data}] = useQuery({
     query: query,
     variables: {
@@ -50,6 +52,15 @@ const Product = ({navigation, route}) => {
   const onVariantChange = (variant) => setChosenVariant(variant);
 
   const summary = product?.components?.find((c) => c.name === 'Summary');
+
+  async function buy() {
+    await navigation.openDrawer();
+    basket.actions.addItem({
+      sku: selectedVariant.sku,
+      path: product.path,
+    });
+  }
+
   return (
     <View style={{flex: 1}}>
       <ScrollView style={styles.container}>
@@ -84,9 +95,7 @@ const Product = ({navigation, route}) => {
             </>
           )}
         </View>
-        <TouchableOpacity
-          style={styles.buyBtn}
-          onPress={() => alert('@TODO add buy functionality')}>
+        <TouchableOpacity style={styles.buyBtn} onPress={() => buy()}>
           <Image
             style={styles.buyIcon}
             source={require('assets/images/shopping-bag.png')}
