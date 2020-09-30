@@ -15,7 +15,7 @@ import Grid from 'components/grid';
 import query from './query';
 import Card from 'components/category-microformat';
 import styles from './styles';
-
+import {CRYSTALLIZE_FRONTPAGE_GRID_IDENTIFIER} from '@env';
 const Home = ({route}) => {
   const navigation = useNavigation();
 
@@ -24,6 +24,7 @@ const Home = ({route}) => {
     variables: {
       language: 'en',
       path: '/shop',
+      gridId: CRYSTALLIZE_FRONTPAGE_GRID_IDENTIFIER,
     },
   });
 
@@ -42,6 +43,8 @@ const Home = ({route}) => {
     );
   }
   const {folder, grid} = data;
+
+  console.log('grid', grid);
   return (
     <View style={styles.container}>
       <ScrollView>

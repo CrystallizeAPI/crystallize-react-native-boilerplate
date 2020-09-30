@@ -2,7 +2,7 @@ import itemFragment from 'lib/graph/fragments/item';
 import productFragment from 'lib/graph/fragments/product';
 
 export default `
-query FOLDER_PAGE($language: String!, $path: String) {
+query FOLDER_PAGE($language: String!, $path: String, $gridId: ID!) {
     folder: catalogue(language: $language, path: $path) {
       ...item
 
@@ -11,7 +11,7 @@ query FOLDER_PAGE($language: String!, $path: String) {
         ...product
       }
     }
-    grid: grid(id: "5f1a87ec0ae5bb001c7f69a6", language: $language) {
+    grid: grid(id: $gridId, language: $language) {
       id
       name
       rows {

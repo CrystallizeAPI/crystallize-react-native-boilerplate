@@ -12,13 +12,15 @@ import Article from './src/article/index';
 import Search from './src/search/index';
 import BasketSidebar from './components/basket-sidebar/index';
 
+import {CRYSTALLIZE_TENANT_IDENTIFIER} from '@env';
+
 import {BasketProvider} from './components/basket/index';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const client = createClient({
-  url: 'https://api.crystallize.com/furniture/catalogue',
+  url: `https://api.crystallize.com/${CRYSTALLIZE_TENANT_IDENTIFIER}/catalogue`,
 });
 
 const stackStyling = {
