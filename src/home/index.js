@@ -16,6 +16,7 @@ import query from './query';
 import Card from 'components/category-microformat';
 import styles from './styles';
 import {CRYSTALLIZE_FRONTPAGE_GRID_IDENTIFIER} from '@env';
+
 const Home = ({route}) => {
   const navigation = useNavigation();
 
@@ -44,7 +45,6 @@ const Home = ({route}) => {
   }
   const {folder, grid} = data;
 
-  console.log('grid', grid);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -60,7 +60,6 @@ const Home = ({route}) => {
             />
           </TouchableOpacity>
         </View>
-
         <FlatList
           data={folder?.children}
           renderItem={(item) => <Card {...item} />}

@@ -3,11 +3,22 @@ import React from 'react';
 import {View, Text, FlatList} from 'react-native';
 import Loading from 'components/loading';
 
-import ProductCard from 'components/product-microformat';
+import Product from 'components/product-microformat';
+import Category from 'components/category-microformat';
+import Document from 'components/document-microformat';
 
 import styles from './styles';
 import query from './query';
 
+const renderType = (item) => {
+  console.log('type', item.item.type);
+  const types = {
+    document: <Document {...item} />,
+    product: <Product {...item} />,
+    folder: <Category {...item} />,
+  };
+  return types[item.item.type];
+};
 const Catalogue = ({navigation, route}) => {
   const [{fetching, error, data}] = useQuery({
     query: query,
@@ -29,10 +40,9 @@ const Catalogue = ({navigation, route}) => {
   const {folder} = data;
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.title}>Welcome</Text> */}
       <FlatList
         data={folder?.children}
-        renderItem={(item) => <ProductCard {...item} />}
+        renderItem={(item) => renderType(item)}
         keyExtractor={(item) => item.id}
         numColumns={2}
         style={{
