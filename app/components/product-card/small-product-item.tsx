@@ -51,7 +51,6 @@ const PRODUCT_ITEM_WRAPPER: ViewStyle = {
 
 export const ProductCardItem = ({ item }) => {
   const navigation = useNavigation()
-
   const nextScreen = () => navigation.navigate("demo")
 
   return (
@@ -62,22 +61,6 @@ export const ProductCardItem = ({ item }) => {
         <Text style={PRODUCT_IMAGE_HEADING}>{item.title}</Text>
         <Text style={PRODUCT_IMAGE_SUBHEADING}>{item.content}</Text>
       </TouchableOpacity>
-    </View>
-  )
-}
-
-const HORIZONTAL_LIST_WRAPPER: ViewStyle = {
-  paddingLeft: 2,
-}
-
-export const HorizontalList = ({ data }) => {
-  return (
-    <View style={HORIZONTAL_LIST_WRAPPER}>
-      <FlatList
-        horizontal={true}
-        data={data}
-        renderItem={({ item }) => <ProductCardItem item={item} />}
-      ></FlatList>
     </View>
   )
 }

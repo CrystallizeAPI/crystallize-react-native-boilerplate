@@ -319,8 +319,8 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
-  - RNGestureHandler (1.8.0):
-    - React
+  - RNGestureHandler (1.10.2):
+    - React-Core
   - RNKeychain (6.2.0):
     - React
   - RNReanimated (1.13.2):
@@ -590,7 +590,7 @@ SPEC CHECKSUMS:
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
+  RNGestureHandler: e66feb0fda7da74ea6a3094656b3c1efe05f5c07
   RNKeychain: b8e0711b959a19c5b057d1e970d3c83d159b6da5
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: 13f23e5498fb4aa749d19a5eda7f8792fbb9d01f

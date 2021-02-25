@@ -1,11 +1,12 @@
 import React from "react"
-import { View, ViewStyle, Image, ImageStyle, TextStyle } from "react-native"
+import { View, ViewStyle, Image, ImageStyle, TextStyle, Dimensions } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { observer } from "mobx-react-lite"
 import { Button, Header, Screen, Text, Wallpaper } from "../../components"
 import { color, spacing, typography } from "../../theme"
 
-import { HorizontalList } from "../../components/product-card/small-product-item"
+import { HorizontalList } from "../../components/horizontal-list/horizontal-list"
+import { ProductCardItem } from "../../components/product-card/small-product-item"
 import { ProductItem } from "../../components/product-card/shop-product-item"
 import { CollectionCard } from "../../components/product-card/collection-items-card"
 import { Article } from "../../components/product-card/article-card"
@@ -61,7 +62,94 @@ const CarousalContainer = () => {
   return (
     <View style={CAROUSAL_WRAPPER}>
       <Text style={CAROUSAL_ITEM}>All</Text>
+      <Text style={CAROUSAL_ITEM}>All</Text>
     </View>
+  )
+}
+
+const renderList = [
+  {
+    type: "productList",
+    data: DummyData,
+  },
+  {
+    type: "postList",
+    data: DummyData,
+  },
+  {
+    type: "collection",
+    name: "Collection #1",
+  },
+  {
+    type: "collection",
+    name: "Collection #2",
+  },
+  {
+    type: "post",
+    name: "Article #1",
+  },
+  {
+    type: "list",
+    data: DummyData,
+  },
+  {
+    type: "product",
+    name: "Product #1",
+  },
+  {
+    type: "product",
+    name: "Product #2",
+  },
+
+  {
+    type: "post",
+    name: "Article #1",
+  },
+]
+
+interface renderScreenPops {
+  data: any
+}
+
+const RenderScreen = (props: renderScreenPops) => {
+  const { data } = props
+  const navigation = useNavigation()
+  const nextScreen = () => navigation.navigate("demo")
+  const productScreen = () => navigation.navigate("productItem")
+  const articleScreen = () => navigation.navigate("article")
+
+  return (
+    <>
+      {data.map((item, key) => {
+        if (!item.type) return null
+        if (item.type === "collection") return <CollectionCard key={key} onPress={productScreen} />
+        if (item.type === "product") return <ProductItem key={key} onPress={nextScreen} />
+        if (item.type === "post") return <Article key={key} onPress={articleScreen} />
+        if (item.type === "list") {
+          return (
+            <HorizontalList
+              type="miniCard"
+              key={key}
+              data={item.data}
+              renderItem={ProductCardItem}
+            />
+          )
+        }
+        if (item.type === "productList") {
+          return (
+            <HorizontalList
+              type="productCard"
+              key={key}
+              data={item.data}
+              renderItem={ProductItem}
+            />
+          )
+        }
+        if (item.type === "postList") {
+          return <HorizontalList type="article" key={key} data={item.data} renderItem={Article} />
+        }
+      })}
+    </>
   )
 }
 
@@ -75,14 +163,7 @@ export const WelcomeScreen = observer(function WelcomeScreen() {
     <View testID="WelcomeScreen" style={FULL}>
       <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
         <CarousalContainer></CarousalContainer>
-        <CollectionCard onPress={productScreen} />
-        <CollectionCard onPress={productScreen} />
-        <HorizontalList data={DummyData} />
-        <Article onPress={articleScreen} />
-        <ProductItem onPress={nextScreen} />
-        <ProductItem onPress={nextScreen} />
-        <ProductItem onPress={nextScreen} />
-        <ProductItem onPress={nextScreen} />
+        <RenderScreen data={renderList}></RenderScreen>
       </Screen>
     </View>
   )
