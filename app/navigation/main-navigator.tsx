@@ -7,6 +7,11 @@
 import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
 import { WelcomeScreen, DemoScreen } from "../screens"
+import { ProductItemScreen } from "../screens/productItem/product-item"
+import { ArticleScreen } from "../screens/article/article-screen"
+
+import { createDrawerNavigator } from "@react-navigation/drawer"
+import { ShoppingCart } from "../components/cart/cart"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -23,12 +28,15 @@ import { WelcomeScreen, DemoScreen } from "../screens"
 export type PrimaryParamList = {
   welcome: undefined
   demo: undefined
+  productItem: undefined
+  article: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
 const Stack = createStackNavigator<PrimaryParamList>()
+const Drawer = createDrawerNavigator()
 
-export function MainNavigator() {
+function HomeNavigation() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -37,7 +45,17 @@ export function MainNavigator() {
     >
       <Stack.Screen name="welcome" component={WelcomeScreen} />
       <Stack.Screen name="demo" component={DemoScreen} />
+      <Stack.Screen name="productItem" component={ProductItemScreen} />
+      <Stack.Screen name="article" component={ArticleScreen} />
     </Stack.Navigator>
+  )
+}
+
+export function MainNavigator() {
+  return (
+    <Drawer.Navigator drawerContent={ShoppingCart} drawerPosition={"right"} drawerType="front">
+      <Drawer.Screen name="Home" component={HomeNavigation} />
+    </Drawer.Navigator>
   )
 }
 
