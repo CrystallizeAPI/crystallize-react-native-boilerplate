@@ -8,6 +8,9 @@ import React from "react"
 import { NavigationContainer, NavigationContainerRef } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { MainNavigator } from "./main-navigator"
+import { BasketProvider } from "../components/basket/index"
+import en from "../locales/en-US"
+import gr from "../locales/el-GR"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -48,9 +51,13 @@ export const RootNavigator = React.forwardRef<
   Partial<React.ComponentProps<typeof NavigationContainer>>
 >((props, ref) => {
   return (
-    <NavigationContainer {...props} ref={ref}>
-      <RootStack />
-    </NavigationContainer>
+    <>
+      <BasketProvider>
+        <NavigationContainer {...props} ref={ref}>
+          <RootStack />
+        </NavigationContainer>
+      </BasketProvider>
+    </>
   )
 })
 

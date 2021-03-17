@@ -29,7 +29,7 @@ const ARTICLE_HEADING: TextStyle = {
   color: "#fff",
 }
 
-export const Article = ({ onPress }) => {
+export const Article = ({ onPress, data }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={ARTICLE_WRAPPER}>

@@ -2,17 +2,16 @@ import React from "react"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { View, ViewStyle, Text, TextStyle, Image, ImageStyle, FlatList } from "react-native"
 
-export function CartItem() {
+export function CartItem({ item, actions }) {
+  const { attributes, images, price, name, quantity } = item
+
   return (
     <TouchableOpacity style={CART_ITEM}>
-      <Image
-        style={IMAGE_PREVIEW}
-        source={{ uri: "https://source.unsplash.com/random/100x100/?sofa" }}
-      ></Image>
+      <Image style={IMAGE_PREVIEW} source={{ uri: images[0].url }}></Image>
       <View style={CART_CONTENT}>
-        <Text style={CART_TITLE}>Hand Crafted...</Text>
-        <Text style={CART_LABEL}>Kitchen</Text>
-        <Text style={CART_ITEM_PRICE}>$399.00</Text>
+        <Text style={CART_TITLE}>{name}</Text>
+        <Text style={CART_LABEL}>{quantity}</Text>
+        <Text style={CART_ITEM_PRICE}>{`${price.currency} ${price.gross}`}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -24,7 +23,7 @@ const CART_ITEM: ViewStyle = {
   borderRadius: 7,
   marginTop: 10,
   marginBottom: 10,
-  padding: 10,
+  padding: 14,
   display: "flex",
   flexDirection: "row",
 }
@@ -40,19 +39,19 @@ const CART_CONTENT: ViewStyle = {
   marginLeft: 10,
 }
 
-const CART_TITLE = {
+const CART_TITLE: TextStyle = {
   color: "#000",
   fontSize: 16,
   fontWeight: "500",
 }
 
-const CART_LABEL = {
+const CART_LABEL: TextStyle = {
   color: "#999",
   fontSize: 16,
   fontWeight: "500",
 }
 
-const CART_ITEM_PRICE = {
+const CART_ITEM_PRICE: TextStyle = {
   color: "#000",
   fontSize: 18,
   fontWeight: "600",

@@ -17,31 +17,43 @@ export const HorizontalList = ({ type, data, renderItem }: HorizontalListProps) 
     <View style={HORIZONTAL_LIST_WRAPPER}>
       {type === "miniCard" && (
         <FlatList
+          keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
           horizontal={true}
           data={data}
           renderItem={({ item }) => {
-            return React.createElement(renderItem, { item: item })
+            return React.createElement(renderItem, { id: item.id, item: item })
           }}
         ></FlatList>
       )}
       {type === "productCard" && (
         <FlatList
+          keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
           horizontal={true}
           data={data}
           renderItem={({ item }) => {
-            console.log("thissss")
-            return React.createElement(renderItem, { onPress: productScreen })
+            return React.createElement(renderItem, {
+              id: item.id,
+              onPress: productScreen,
+              data: item,
+            })
           }}
         ></FlatList>
       )}
 
       {type === "article" && (
         <FlatList
+          keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
           horizontal={true}
           data={data}
           renderItem={({ item }) => {
-            console.log("thissss")
-            return React.createElement(renderItem, { onPress: articleScreen })
+            return React.createElement(renderItem, {
+              id: item.id,
+              onPress: articleScreen,
+              item: item,
+            })
           }}
         ></FlatList>
       )}

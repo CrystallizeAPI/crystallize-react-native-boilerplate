@@ -11,7 +11,9 @@ import { ProductItemScreen } from "../screens/productItem/product-item"
 import { ArticleScreen } from "../screens/article/article-screen"
 
 import { createDrawerNavigator } from "@react-navigation/drawer"
-import { ShoppingCart } from "../components/cart/cart"
+import { ShoppingCart } from "../components/basket/cart/cart"
+import { useBasket } from "../components/basket/index"
+import { Dimensions } from "react-native"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -52,8 +54,16 @@ function HomeNavigation() {
 }
 
 export function MainNavigator() {
+  const basket = useBasket()
   return (
-    <Drawer.Navigator drawerContent={ShoppingCart} drawerPosition={"right"} drawerType="front">
+    <Drawer.Navigator
+      drawerContent={() => <ShoppingCart basket={basket} />}
+      drawerPosition={"right"}
+      drawerType="front"
+      drawerStyle={{
+        width: Dimensions.get("window").width * 0.86,
+      }}
+    >
       <Drawer.Screen name="Home" component={HomeNavigation} />
     </Drawer.Navigator>
   )

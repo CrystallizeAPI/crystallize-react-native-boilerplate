@@ -25,6 +25,7 @@ import {
 } from "./navigation"
 import { RootStore, RootStoreProvider, setupRootStore } from "./models"
 import { ToggleStorybook } from "../storybook/toggle-storybook"
+import { Provider, createClient } from "urql"
 
 // This puts screens in a native ViewController or Activity. If you want fully native
 // stack navigation, use `createNativeStackNavigator` in place of `createStackNavigator`:
@@ -33,6 +34,12 @@ import { enableScreens } from "react-native-screens"
 enableScreens()
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
+
+const CRYSTALLIZE_TENANT_IDENTIFIER = "furniture"
+
+const client = createClient({
+  url: `https://api.crystallize.com/${CRYSTALLIZE_TENANT_IDENTIFIER}/catalogue`,
+})
 
 /**
  * This is the root component of our app.
@@ -64,17 +71,19 @@ function App() {
 
   // otherwise, we're ready to render the app
   return (
-    <ToggleStorybook>
-      <RootStoreProvider value={rootStore}>
-        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-          <RootNavigator
-            ref={navigationRef}
-            initialState={initialNavigationState}
-            onStateChange={onNavigationStateChange}
-          />
-        </SafeAreaProvider>
-      </RootStoreProvider>
-    </ToggleStorybook>
+    <Provider value={client}>
+      <ToggleStorybook>
+        <RootStoreProvider value={rootStore}>
+          <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+            <RootNavigator
+              ref={navigationRef}
+              initialState={initialNavigationState}
+              onStateChange={onNavigationStateChange}
+            />
+          </SafeAreaProvider>
+        </RootStoreProvider>
+      </ToggleStorybook>
+    </Provider>
   )
 }
 

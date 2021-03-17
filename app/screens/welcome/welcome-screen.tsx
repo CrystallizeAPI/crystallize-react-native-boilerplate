@@ -1,15 +1,58 @@
 import React from "react"
-import { View, ViewStyle, Image, ImageStyle, TextStyle, Dimensions } from "react-native"
-import { useNavigation } from "@react-navigation/native"
+import { View, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
-import { Button, Header, Screen, Text, Wallpaper } from "../../components"
-import { color, spacing, typography } from "../../theme"
+import { Text } from "../../components"
+import { color } from "../../theme"
 
-import { HorizontalList } from "../../components/horizontal-list/horizontal-list"
-import { ProductCardItem } from "../../components/product-card/small-product-item"
-import { ProductItem } from "../../components/product-card/shop-product-item"
-import { CollectionCard } from "../../components/product-card/collection-items-card"
-import { Article } from "../../components/product-card/article-card"
+import { CategoryTabBar } from "../../components/tab-bar/tab-bar"
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
+
+import { useQuery } from "urql"
+import { Hquery } from "../../queries/home"
+import { RenderScreen } from "../../components/render/renderView"
+
+const Tab = createMaterialTopTabNavigator()
+
+export const WelcomeScreen = observer(function WelcomeScreen() {
+  const [{ data, fetching, error }] = useQuery({
+    query: Hquery,
+    variables: {
+      language: "en",
+      path: "/shop",
+    },
+  })
+
+  if (fetching) {
+    return (
+      <View>
+        <Text>Loading..</Text>
+      </View>
+    )
+  }
+
+  const { document } = data
+  const { components } = document
+  const categories = document.children
+
+  return (
+    <View style={FULL}>
+      <Tab.Navigator
+        tabBarOptions={{
+          labelStyle: { fontSize: 12 },
+          tabStyle: { width: 100 },
+          style: { backgroundColor: "powderblue" },
+          scrollEnabled: true,
+        }}
+        tabBar={(props) => <CategoryTabBar {...props} />}
+      >
+        {/* <Tab.Screen key={"shop"} name={"Shop"} component={RenderScreen} /> */}
+        {categories.map((category, key) => {
+          return <Tab.Screen key={key} name={category.name} component={RenderScreen} />
+        })}
+      </Tab.Navigator>
+    </View>
+  )
+})
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -18,153 +61,3 @@ const CONTAINER: ViewStyle = {
   flexDirection: "row",
   flexWrap: "wrap",
 }
-
-const DummyData = [
-  {
-    id: "1",
-    url: "https://source.unsplash.com/random/200x150/?sofa",
-    title: "Heading",
-    content: "Sub heading",
-  },
-  {
-    id: "2",
-    url: "https://source.unsplash.com/random/200x150/?kitchen",
-    title: "Heading",
-    content: "Sub heading",
-  },
-  {
-    id: "3",
-    url: "https://source.unsplash.com/random/200x150/?plant",
-    title: "Heading",
-    content: "Sub heading",
-  },
-  {
-    id: "4",
-    url: "https://source.unsplash.com/random/200x150/?paintings",
-    title: "Heading",
-    content: "Sub heading",
-  },
-]
-
-const CAROUSAL_WRAPPER: ViewStyle = {
-  width: "100%",
-  padding: 0,
-  margin: 10,
-}
-
-const CAROUSAL_ITEM: TextStyle = {
-  fontSize: 27,
-  color: "#000",
-  fontWeight: "bold",
-}
-
-const CarousalContainer = () => {
-  return (
-    <View style={CAROUSAL_WRAPPER}>
-      <Text style={CAROUSAL_ITEM}>All</Text>
-      <Text style={CAROUSAL_ITEM}>All</Text>
-    </View>
-  )
-}
-
-const renderList = [
-  {
-    type: "productList",
-    data: DummyData,
-  },
-  {
-    type: "postList",
-    data: DummyData,
-  },
-  {
-    type: "collection",
-    name: "Collection #1",
-  },
-  {
-    type: "collection",
-    name: "Collection #2",
-  },
-  {
-    type: "post",
-    name: "Article #1",
-  },
-  {
-    type: "list",
-    data: DummyData,
-  },
-  {
-    type: "product",
-    name: "Product #1",
-  },
-  {
-    type: "product",
-    name: "Product #2",
-  },
-
-  {
-    type: "post",
-    name: "Article #1",
-  },
-]
-
-interface renderScreenPops {
-  data: any
-}
-
-const RenderScreen = (props: renderScreenPops) => {
-  const { data } = props
-  const navigation = useNavigation()
-  const nextScreen = () => navigation.navigate("demo")
-  const productScreen = () => navigation.navigate("productItem")
-  const articleScreen = () => navigation.navigate("article")
-
-  return (
-    <>
-      {data.map((item, key) => {
-        if (!item.type) return null
-        if (item.type === "collection") return <CollectionCard key={key} onPress={productScreen} />
-        if (item.type === "product") return <ProductItem key={key} onPress={nextScreen} />
-        if (item.type === "post") return <Article key={key} onPress={articleScreen} />
-        if (item.type === "list") {
-          return (
-            <HorizontalList
-              type="miniCard"
-              key={key}
-              data={item.data}
-              renderItem={ProductCardItem}
-            />
-          )
-        }
-        if (item.type === "productList") {
-          return (
-            <HorizontalList
-              type="productCard"
-              key={key}
-              data={item.data}
-              renderItem={ProductItem}
-            />
-          )
-        }
-        if (item.type === "postList") {
-          return <HorizontalList type="article" key={key} data={item.data} renderItem={Article} />
-        }
-      })}
-    </>
-  )
-}
-
-export const WelcomeScreen = observer(function WelcomeScreen() {
-  const navigation = useNavigation()
-  const nextScreen = () => navigation.navigate("demo")
-  const productScreen = () => navigation.navigate("productItem")
-  const articleScreen = () => navigation.navigate("article")
-
-  return (
-    <View testID="WelcomeScreen" style={FULL}>
-      <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-        <CarousalContainer></CarousalContainer>
-        <RenderScreen data={renderList}></RenderScreen>
-      </Screen>
-    </View>
-  )
-})

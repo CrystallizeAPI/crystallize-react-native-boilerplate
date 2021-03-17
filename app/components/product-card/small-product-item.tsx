@@ -11,6 +11,29 @@ import {
 } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 
+export const ProductCardItem = ({ data }) => {
+  const navigation = useNavigation()
+  const nextScreen = () => navigation.navigate("demo")
+
+  const { name, variants } = data
+  const { images, stock, priceVariants } = variants[0]
+  const displayImage = images[0]?.url
+
+  const currency = priceVariants.find((c) => c.currency === "EUR")
+  const isInStock = stock > 0
+
+  return (
+    <View style={PRODUCT_ITEM_WRAPPER}>
+      <TouchableOpacity onPress={nextScreen}>
+        <Image source={{ uri: displayImage }} style={PRODUCT_CARD_IMAGE} />
+        <View style={IMAGE_OVERLAY}></View>
+        <Text style={PRODUCT_IMAGE_HEADING}>{name}</Text>
+        <Text style={PRODUCT_IMAGE_SUBHEADING}>text descp</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
 const PRODUCT_CARD_IMAGE: ImageStyle = {
   flex: 1,
   width: 175,
@@ -47,20 +70,4 @@ const PRODUCT_IMAGE_SUBHEADING: TextStyle = {
 const PRODUCT_ITEM_WRAPPER: ViewStyle = {
   paddingVertical: 15,
   marginLeft: 10,
-}
-
-export const ProductCardItem = ({ item }) => {
-  const navigation = useNavigation()
-  const nextScreen = () => navigation.navigate("demo")
-
-  return (
-    <View style={PRODUCT_ITEM_WRAPPER}>
-      <TouchableOpacity onPress={nextScreen}>
-        <Image source={{ uri: item.url }} style={PRODUCT_CARD_IMAGE} />
-        <View style={IMAGE_OVERLAY}></View>
-        <Text style={PRODUCT_IMAGE_HEADING}>{item.title}</Text>
-        <Text style={PRODUCT_IMAGE_SUBHEADING}>{item.content}</Text>
-      </TouchableOpacity>
-    </View>
-  )
 }

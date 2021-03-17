@@ -1,5 +1,56 @@
 import React from "react"
 import { View, Text, ViewStyle, Image, ImageStyle, TextStyle, TouchableOpacity } from "react-native"
+import { useNavigation } from "@react-navigation/native"
+
+export const ProductItem = ({ onPress, data }) => {
+  const navigation = useNavigation()
+
+  const { name, variants } = data
+  const { images, stock, priceVariants } = variants[0]
+  const displayImage = images[0]?.url
+
+  const currency = priceVariants.find((c) => c.currency === "EUR")
+  const isInStock = stock > 0
+
+  const productScreen = () => {
+    const components = data.components
+    const richText = components?.find((c) => c.type === "richText")
+    const propertiesTable = components?.find((c) => c.type === "propertiesTable")
+    const paragraphCollection = components?.find((c) => c.type === "paragraphCollection")
+
+    navigation.navigate("productItem", { data: data })
+  }
+
+  return (
+    <TouchableOpacity style={SHADOW} onPress={productScreen}>
+      <View style={PRODUCT_ITEM_CARD}>
+        <View style={PRODUCT_IMAGE_CONTAINER}>
+          <Image style={PRODUCT_IMAGE} source={{ uri: displayImage }} />
+        </View>
+        <View style={PRODUCT_CONTENT_WRAPPER}>
+          <View style={PRODUCT_TEXT_WRAPPER}>
+            <Text style={PRODUCT_PRICE}>
+              {currency.currency} {currency.price}
+            </Text>
+            <Text style={PRODUCT_STOCK_LABEL}>{isInStock ? "In stock" : "out of stock"}</Text>
+          </View>
+          <Text style={PRODUCT_TITLE}>{name}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  )
+}
+
+const SHADOW: ViewStyle = {
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 1,
+  },
+  shadowOpacity: 0.2,
+  shadowRadius: 1.41,
+  elevation: 2,
+}
 
 const PRODUCT_ITEM_CARD: ViewStyle = {
   width: 176,
@@ -49,26 +100,4 @@ const PRODUCT_TEXT_WRAPPER: ViewStyle = {
   flexDirection: "row",
   justifyContent: "space-between",
   marginBottom: 10,
-}
-
-export const ProductItem = ({ onPress }) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={PRODUCT_ITEM_CARD}>
-        <View style={PRODUCT_IMAGE_CONTAINER}>
-          <Image
-            style={PRODUCT_IMAGE}
-            source={{ uri: "https://source.unsplash.com/random/300x200/?food" }}
-          />
-        </View>
-        <View style={PRODUCT_CONTENT_WRAPPER}>
-          <View style={PRODUCT_TEXT_WRAPPER}>
-            <Text style={PRODUCT_PRICE}>$200</Text>
-            <Text style={PRODUCT_STOCK_LABEL}>in stock</Text>
-          </View>
-          <Text style={PRODUCT_TITLE}>Wall paper</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
-  )
 }
