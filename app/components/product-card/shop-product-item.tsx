@@ -30,7 +30,7 @@ export const ProductItem = ({ onPress, data }) => {
         <View style={PRODUCT_CONTENT_WRAPPER}>
           <View style={PRODUCT_TEXT_WRAPPER}>
             <Text style={PRODUCT_PRICE}>
-              {currency.currency} {currency.price}
+              {currency.currency === "EUR" ? "€" : currency.currency} {currency.price}
             </Text>
             <Text style={PRODUCT_STOCK_LABEL}>{isInStock ? "In stock" : "out of stock"}</Text>
           </View>

@@ -1,9 +1,9 @@
 import React from "react"
 import { View, ViewStyle, Text, TextStyle, TouchableOpacity } from "react-native"
 
-export const AddToCardButton = ({ label }) => {
+export const AddToCartButton = ({ label, action }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={action}>
       <View style={ADD_TO_CARD_BUTTON}>
         <Text style={BUTTON_TEXT}>{label || "Button"}</Text>
       </View>

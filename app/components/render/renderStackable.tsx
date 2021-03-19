@@ -34,14 +34,6 @@ export const Render = ({ data }) => {
           )
         }
 
-        // if (onlyDocuments !== undefined && onlyDocuments.length > 0) {
-        //   console.log("lol -", onlyDocuments)
-
-        //   return (
-        //     <HorizontalList type="article" key={key} data={onlyDocuments} renderItem={Article} />
-        //   )
-        // }
-
         if (item.__typename === "collection") {
           return <CollectionCard key={key} onPress={productScreen} />
         }

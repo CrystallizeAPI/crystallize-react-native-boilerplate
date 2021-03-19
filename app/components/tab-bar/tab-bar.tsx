@@ -1,5 +1,6 @@
 import React from "react"
 import { View, ViewStyle, TextStyle, TouchableOpacity, Text, FlatList } from "react-native"
+import Animated from "react-native-reanimated"
 
 export function CategoryTabBar({ state, descriptors, navigation, position }) {
   // console.log("position ->", position)
@@ -28,6 +29,19 @@ export function CategoryTabBar({ state, descriptors, navigation, position }) {
           }
         }
 
+        const onLongPress = () => {
+          navigation.emit({
+            type: "tabLongPress",
+            target: route.key,
+          })
+        }
+
+        const inputRange = state.routes.map((_, i) => i)
+        const opacity = Animated.interpolate(position, {
+          inputRange,
+          outputRange: inputRange.map((i) => (i === index ? 1 : 0)),
+        })
+
         return (
           <TouchableOpacity
             key={index}
@@ -37,6 +51,7 @@ export function CategoryTabBar({ state, descriptors, navigation, position }) {
             testID={options.tabBarTestID}
             style={TAB_BAR_ITEM}
             onPress={onPress}
+            onLongPress={onLongPress}
           >
             <Text style={isFocused ? TAB_ACTIVE : TAB_INACTIVE}>{label}</Text>
           </TouchableOpacity>
@@ -48,14 +63,15 @@ export function CategoryTabBar({ state, descriptors, navigation, position }) {
 
 const TAB_BAR_CONTAINER: ViewStyle = {
   flexDirection: "row",
-  marginTop: 50,
+  // marginTop: 50,
   padding: 20,
+  paddingBottom: 0,
+  marginBottom: 0,
 }
 
 const TAB_BAR_ITEM: ViewStyle = {
   padding: 10,
   marginRight: 10,
-  //   backgroundColor: "green",
 }
 
 const TAB_ACTIVE: TextStyle = {

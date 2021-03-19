@@ -4,6 +4,7 @@ import { View, ViewStyle, Text, TextStyle, Image, ImageStyle, FlatList } from "r
 
 export function CartItem({ item, actions }) {
   const { attributes, images, price, name, quantity } = item
+  const symbol = price.currency === "EUR" ? "€" : price.currency
 
   return (
     <TouchableOpacity style={CART_ITEM}>
@@ -11,7 +12,7 @@ export function CartItem({ item, actions }) {
       <View style={CART_CONTENT}>
         <Text style={CART_TITLE}>{name}</Text>
         <Text style={CART_LABEL}>{quantity}</Text>
-        <Text style={CART_ITEM_PRICE}>{`${price.currency} ${price.gross}`}</Text>
+        <Text style={CART_ITEM_PRICE}>{`${symbol} ${price.gross}`}</Text>
       </View>
     </TouchableOpacity>
   )

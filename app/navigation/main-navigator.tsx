@@ -9,6 +9,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import { WelcomeScreen, DemoScreen } from "../screens"
 import { ProductItemScreen } from "../screens/productItem/product-item"
 import { ArticleScreen } from "../screens/article/article-screen"
+import { CheckoutScreen } from "../screens/checkout/checkout"
 
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import { ShoppingCart } from "../components/basket/cart/cart"
@@ -29,9 +30,10 @@ import { Dimensions } from "react-native"
  */
 export type PrimaryParamList = {
   welcome: undefined
-  demo: undefined
   productItem: undefined
   article: undefined
+  checkout: undefined
+  // cart: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -46,9 +48,9 @@ function HomeNavigation() {
       }}
     >
       <Stack.Screen name="welcome" component={WelcomeScreen} />
-      <Stack.Screen name="demo" component={DemoScreen} />
       <Stack.Screen name="productItem" component={ProductItemScreen} />
       <Stack.Screen name="article" component={ArticleScreen} />
+      <Stack.Screen name="checkout" component={CheckoutScreen} />
     </Stack.Navigator>
   )
 }

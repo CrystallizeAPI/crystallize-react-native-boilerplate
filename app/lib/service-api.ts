@@ -1,6 +1,16 @@
-const PUBLIC_SERVICE_API_URL = "https://service-api-demo.superfast.shop/api/graphql"
+const PUBLIC_SERVICE_API_URL = "https://e124fe8f3ff9.ngrok.io/dev/graphql"
 
-export default async function serviceApi({ uri = PUBLIC_SERVICE_API_URL, query, variables }) {
+interface serviceAPIProps {
+  uri?: string
+  query: string
+  variables?: any
+}
+
+export default async function serviceApi({
+  uri = PUBLIC_SERVICE_API_URL,
+  query,
+  variables,
+}: serviceAPIProps) {
   const body = JSON.stringify({ query, variables })
 
   const response = await fetch(uri, {

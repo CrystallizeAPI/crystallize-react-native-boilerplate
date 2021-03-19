@@ -1,5 +1,14 @@
 import React from "react"
-import { View, ViewStyle, Text, TextStyle, ImageStyle, Image, FlatList, Button } from "react-native"
+import {
+  View,
+  ViewStyle,
+  Text,
+  TextStyle,
+  ImageStyle,
+  Image,
+  FlatList,
+  SafeAreaView,
+} from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { observer } from "mobx-react-lite"
 import { color, spacing, typography } from "../../theme"
@@ -7,6 +16,7 @@ import { color, spacing, typography } from "../../theme"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { ImageHeaderScrollView, TriggeringView } from "react-native-image-header-scroll-view"
 import { useBasket } from "../../components/basket/index"
+import { AddToCartButton } from "../../components/button/add-to-cart"
 
 export const BackButton = () => {
   const navigation = useNavigation()
@@ -82,29 +92,39 @@ export const ProductItemScreen = observer(function ProductScreen(props) {
   }
 
   return (
-    <ImageHeaderScrollView
-      maxHeight={300}
-      minHeight={0}
-      headerImage={{
-        uri: image === undefined ? "https://source.unsplash.com/random/400x300" : image,
-      }}
-      renderForeground={() => <RenderHeaderImage />}
-    >
-      <View style={PRODUCT_BODY}>
-        <TriggeringView>
-          <Button title="ADD TO CART" onPress={AddToCart} />
-          <View style={PRODUCT_CONTENT}>
-            <Text style={TEXT_HEADING}>{title}</Text>
-            <Text style={TEXT_PARAGRAPH}>{description}</Text>
-            <Paragraph data={paragraph}></Paragraph>
+    <>
+      <ImageHeaderScrollView
+        maxHeight={300}
+        minHeight={0}
+        headerImage={{
+          uri: image === undefined ? "https://source.unsplash.com/random/400x300" : image,
+        }}
+        renderForeground={() => <RenderHeaderImage />}
+      >
+        <View style={PRODUCT_BODY}>
+          <TriggeringView>
+            <View style={PRODUCT_CONTENT}>
+              <Text style={TEXT_HEADING}>{title}</Text>
+              <Text style={TEXT_PARAGRAPH}>{description}</Text>
+              <Paragraph data={paragraph}></Paragraph>
 
-            <Table data={properties}></Table>
-          </View>
-        </TriggeringView>
-      </View>
-    </ImageHeaderScrollView>
+              <Table data={properties}></Table>
+            </View>
+          </TriggeringView>
+        </View>
+      </ImageHeaderScrollView>
+      <SafeAreaView>
+        <View style={CART_BUTTON_CONTAINER}>
+          <AddToCartButton label="Add to Cart" action={AddToCart}></AddToCartButton>
+        </View>
+      </SafeAreaView>
+    </>
   )
 })
+
+const CART_BUTTON_CONTAINER: ViewStyle = {
+  margin: 20,
+}
 
 const Paragraph = ({ data }) => {
   if (data === undefined) {

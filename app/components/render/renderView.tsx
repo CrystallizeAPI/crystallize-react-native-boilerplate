@@ -5,6 +5,7 @@ import { color } from "../../theme"
 import { useQuery } from "urql"
 import { CategoryQuery } from "../../queries/category"
 import { Render } from "./renderStackable"
+import { SkeletonProductProducts } from "../../components/loading/productSkeleton"
 
 export const RenderScreen = ({ route }) => {
   const routeName = route.name.toLowerCase()
@@ -17,11 +18,7 @@ export const RenderScreen = ({ route }) => {
   })
 
   if (fetching) {
-    return (
-      <View>
-        <Text>Loading..</Text>
-      </View>
-    )
+    return <SkeletonProductProducts />
   }
 
   const { document } = data
@@ -44,4 +41,5 @@ const CONTAINER: ViewStyle = {
   padding: 10,
   flexDirection: "row",
   flexWrap: "wrap",
+  margin: 0,
 }
