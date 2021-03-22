@@ -1,5 +1,13 @@
 import React from "react"
-import { ViewStyle, View, Text, TouchableOpacity, ActivityIndicator, Platform } from "react-native"
+import {
+  ViewStyle,
+  View,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  ActivityIndicator,
+  Platform,
+} from "react-native"
 
 interface ButtonProps {
   text: string
@@ -29,21 +37,26 @@ export default function Button(props: ButtonProps) {
     <TouchableOpacity {...rest} style={BUTTON_STYLE} onPress={handlePress}>
       <View>
         {loading && <ActivityIndicator animating size="small" />}
-        {!loading && !disabled && <Text>{text}</Text>}
-        {!loading && disabled && <Text>{disabledText || text}</Text>}
+        {!loading && !disabled && <Text style={TEXT_STYLE}>{text}</Text>}
+        {!loading && disabled && <Text style={TEXT_STYLE}>{disabledText || text}</Text>}
       </View>
     </TouchableOpacity>
   )
 }
 
+const TEXT_STYLE: TextStyle = {
+  color: "#fff",
+  fontSize: 20,
+}
+
 const BUTTON_STYLE: ViewStyle = {
-  padding: 8,
+  padding: 20,
   margin: 10,
-  height: Platform.OS === "ios" ? 35 : 40,
-  minWidth: 160,
+  // height: Platform.OS === "ios" ? 35 : 40,
+  width: 350,
   overflow: "hidden",
   borderWidth: 1,
-  borderRadius: 4,
-  backgroundColor: "white",
+  borderRadius: 7,
+  backgroundColor: "#000",
   alignItems: "center",
 }

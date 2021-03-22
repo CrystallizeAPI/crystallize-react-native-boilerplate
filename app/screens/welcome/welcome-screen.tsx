@@ -10,7 +10,6 @@ import { useQuery } from "urql"
 import { Hquery } from "../../queries/home"
 import { RenderScreen } from "../../components/render/renderView"
 import { Header } from "../../components/navbar/navbar"
-import { SkeletonProductProducts } from "../../components/loading/productSkeleton"
 
 const Tab = createMaterialTopTabNavigator()
 

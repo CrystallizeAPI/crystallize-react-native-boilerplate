@@ -4,6 +4,18 @@ import { CartItem } from "./cartItem"
 import { AddToCartButton } from "../../../components/button/add-to-cart"
 import { useNavigation } from "@react-navigation/native"
 
+export function ShoppingCartList({ basket, itemStyle }) {
+  return (
+    <FlatList
+      data={basket.cart}
+      renderItem={({ item }) => (
+        <CartItem item={item} actions={basket.actions} itemStyle={itemStyle} />
+      )}
+      keyExtractor={(item) => item.sku}
+    ></FlatList>
+  )
+}
+
 export function ShoppingCart({ basket }: any) {
   const navigation = useNavigation()
   const { total, totalWithoutDiscounts, status } = basket
@@ -19,11 +31,7 @@ export function ShoppingCart({ basket }: any) {
         <Text style={SHOPPING_CART_HEADING}>My Cart - {basket.cart.length} Items</Text>
 
         <View style={CART_ITEMS_CONTAINER}>
-          <FlatList
-            data={basket.cart}
-            renderItem={({ item }) => <CartItem item={item} actions={basket.actions} />}
-            keyExtractor={(item) => item.sku}
-          ></FlatList>
+          <ShoppingCartList itemStyle={{}} basket={basket}></ShoppingCartList>
         </View>
 
         {isLoading ? (
@@ -41,7 +49,6 @@ export function ShoppingCart({ basket }: any) {
           <AddToCartButton
             label="Go to Checkout"
             action={() => {
-              // navigation.toggle()
               navigation.navigate("checkout")
             }}
           />
@@ -63,7 +70,6 @@ const CART_ITEMS_CONTAINER: ViewStyle = {
 
 const SHOPPING_CART_WRAPPER: ViewStyle = {
   flex: 1,
-  backgroundColor: "#fff",
   padding: 25,
 }
 

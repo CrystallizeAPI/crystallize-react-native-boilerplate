@@ -2,12 +2,12 @@ import React from "react"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { View, ViewStyle, Text, TextStyle, Image, ImageStyle, FlatList } from "react-native"
 
-export function CartItem({ item, actions }) {
+export function CartItem({ item, actions, itemStyle }) {
   const { attributes, images, price, name, quantity } = item
   const symbol = price.currency === "EUR" ? "€" : price.currency
 
   return (
-    <TouchableOpacity style={CART_ITEM}>
+    <TouchableOpacity style={{ itemStyle, ...CART_ITEM }}>
       <Image style={IMAGE_PREVIEW} source={{ uri: images[0].url }}></Image>
       <View style={CART_CONTENT}>
         <Text style={CART_TITLE}>{name}</Text>

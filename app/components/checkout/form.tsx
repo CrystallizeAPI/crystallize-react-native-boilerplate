@@ -5,8 +5,8 @@ import stripe from "tipsi-stripe"
 import Button from "../checkout/button"
 import { useBasket } from "../../components/basket"
 import ServiceApi from "../../lib/service-api"
-
-// import { demoCardFormParameters } from "../checkout/demoData"
+import { SafeAreaView } from "react-navigation"
+import { ShoppingCartList } from "../../components/basket/cart/cart"
 
 export const demoCardFormParameters = {
   // Only iOS support this options
@@ -75,31 +75,28 @@ export default function CardFormScreen() {
 
       const confirm = await stripe.confirmPaymentIntent({ clientSecret: stripeClientSecret })
       if (confirm.status === "succeeded") {
-        console.log("intent success!")
         const paymentIntentId = confirm.paymentIntentId
-        console.log("intent ->", paymentIntentId)
-        // const response = await ServiceApi({
-        //   query: `
-        //       mutation confirmStripeOrder($checkoutModel: CheckoutModelInput!, $paymentIntentId: String!) {
-        //         paymentProviders {
-        //           stripe {
-        //             confirmOrder(checkoutModel: $checkoutModel, paymentIntentId: $paymentIntentId) {
-        //               success
-        //               orderId
-        //             }
-        //           }
-        //         }
-        //       }
-        //     `,
-        //   variables: {
-        //     checkoutModel,
-        //     paymentIntentId: paymentIntentId,
-        //   },
-        // })
-        const success = true
+        const response = await ServiceApi({
+          query: `
+              mutation confirmStripeOrder($checkoutModel: CheckoutModelInput!, $paymentIntentId: String!) {
+                paymentProviders {
+                  stripe {
+                    confirmOrder(checkoutModel: $checkoutModel, paymentIntentId: $paymentIntentId) {
+                      success
+                      orderId
+                    }
+                  }
+                }
+              }
+            `,
+          variables: {
+            checkoutModel,
+            paymentIntentId: paymentIntentId,
+          },
+        })
+        // const success = true
+        const { success, orderId } = response.data.paymentProviders.stripe.confirmOrder
         if (success) {
-          // const { success, orderId } = response.data.paymentProviders.stripe.confirmOrder
-
           setPaymentUIState("success")
         } else {
           setPaymentUIState("error")
@@ -108,7 +105,6 @@ export default function CardFormScreen() {
 
       setLoading(false)
     } catch (error) {
-      console.log("error -", error)
       setLoading(false)
     }
   }
@@ -116,32 +112,56 @@ export default function CardFormScreen() {
   return (
     <View style={CONTAINER}>
       {paymentUIState === "in-cart" && (
-        <View>
-          <Text style={HEADER}>Card Form Example</Text>
-          <Text style={INSTRCUTIONS}>Click button to show Card Form dialog.</Text>
-          <Button text="Enter you card and pay" loading={loading} onPress={handleCardPayPress} />
-        </View>
+        <PayWithCardScreen
+          basket={basket}
+          loading={loading}
+          handleCardPayPress={handleCardPayPress}
+        ></PayWithCardScreen>
       )}
 
       {paymentUIState === "loading" && (
         <View>
-          <Text style={HEADER}>LOADING</Text>
+          <Text style={HEADER}>Loading</Text>
         </View>
       )}
 
       {paymentUIState === "success" && (
         <View>
-          <Text style={HEADER}>SUCCESS</Text>
+          <Text style={HEADER}>Order Confirmed!</Text>
         </View>
       )}
 
       {paymentUIState === "error" && (
         <View>
-          <Text style={HEADER}>ERRRRR</Text>
+          <Text style={HEADER}>Oh snap!</Text>
         </View>
       )}
     </View>
   )
+}
+
+const PayWithCardScreen = ({ basket, loading, handleCardPayPress }) => {
+  const [cartCount, setCartCount] = React.useState(0)
+  React.useEffect(() => {
+    if (basket.status === "ready" && basket.cart.length > 0) {
+      let c = basket?.cart?.map((x) => x.quantity)?.reduce((a, b) => a + b)
+      c = c >= 99 ? `${c}+` : c.toString()
+      setCartCount(c)
+    }
+  }, [])
+  return (
+    <View>
+      <Text style={HEADER}>You have {cartCount} items in Cart</Text>
+      <ShoppingCartList itemStyle={ITEM} basket={basket} />
+      <SafeAreaView>
+        <Button text="Pay with Card" loading={loading} onPress={handleCardPayPress} />
+      </SafeAreaView>
+    </View>
+  )
+}
+
+const ITEM: ViewStyle = {
+  backgroundColor: "red",
 }
 
 const CONTAINER: ViewStyle = {
@@ -150,18 +170,8 @@ const CONTAINER: ViewStyle = {
   alignItems: "center",
 }
 
-const HEADER: ViewStyle = {
-  fontSize: 20,
-  textAlign: "center",
+const HEADER: TextStyle = {
+  fontSize: 30,
+  fontWeight: "bold",
   margin: 10,
-}
-
-const INSTRCUTIONS: TextStyle = {
-  textAlign: "center",
-  color: "#333333",
-  marginBottom: 5,
-}
-
-const PAYMENT_METHOD: ViewStyle = {
-  height: 20,
 }

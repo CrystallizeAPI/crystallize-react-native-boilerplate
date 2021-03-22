@@ -1,4 +1,4 @@
-const PUBLIC_SERVICE_API_URL = "https://e124fe8f3ff9.ngrok.io/dev/graphql"
+const PUBLIC_SERVICE_API_URL = "http://localhost:3001/api/graphql"
 
 interface serviceAPIProps {
   uri?: string

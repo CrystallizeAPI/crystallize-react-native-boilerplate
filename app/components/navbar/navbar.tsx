@@ -2,19 +2,20 @@ import React from "react"
 import { View, ViewStyle, Image, ImageStyle, TextStyle, Text, TouchableOpacity } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { useBasket } from "../../components/basket/index"
+import { IconButton } from "../IconButton/IconButton"
 
 interface HeaderProps {
   headerType: string
 }
 
-export function Header({ headerType }) {
+export function Header({ headerType }: HeaderProps) {
   const navigation = useNavigation()
   const basket = useBasket()
   const [cartCount, setCartCount] = React.useState("0")
 
   React.useEffect(() => {
-    if (basket.status === "ready") {
-      let c = basket.cart.map((x) => x.quantity).reduce((a, b) => a + b)
+    if (basket.status === "ready" && basket.cart.length > 0) {
+      let c = basket?.cart?.map((x) => x.quantity)?.reduce((a, b) => a + b)
       c = c >= 99 ? `${c}+` : c.toString()
       setCartCount(c)
     }
@@ -46,7 +47,7 @@ export function Header({ headerType }) {
 
       {headerType === "backNavigation" && (
         <View style={MENU_CONTAINER}>
-          <IconButton name={"menu"} action={goback}></IconButton>
+          <IconButton name={"arrowBlack"} action={goback}></IconButton>
         </View>
       )}
     </View>
@@ -59,54 +60,6 @@ function ProfileButton() {
       <View style={PROFILE_WRAPPER}></View>
     </TouchableOpacity>
   )
-}
-
-interface IconButtonProps {
-  name: string
-  action: () => void
-  showNotification?: boolean
-  notificationLabel?: string
-}
-
-function IconButton({ name, action, showNotification, notificationLabel }: IconButtonProps) {
-  const images = {
-    menu: require("../../../assets/ham.png"),
-    cart: require("../../../assets/shopping-cart.png"),
-  }
-  return (
-    <TouchableOpacity style={WRAPPER_MARGIN} onPress={action}>
-      <Image style={ICON_BUTTON_PLACEHOLDER} source={images[name]}></Image>
-      {showNotification && (
-        <View style={CART_COUNT_CONTAINER}>
-          <Text style={CART_TEXT}>{notificationLabel}</Text>
-        </View>
-      )}
-    </TouchableOpacity>
-  )
-}
-
-const CART_TEXT: TextStyle = {
-  color: "#fff",
-}
-
-const CART_COUNT_CONTAINER: ViewStyle = {
-  width: "auto",
-  backgroundColor: "#000",
-  borderRadius: 100,
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "center",
-  alignItems: "center",
-  position: "absolute",
-  top: -6,
-  right: -18,
-  padding: 4,
-}
-
-const ICON_BUTTON_PLACEHOLDER: ImageStyle = {
-  width: 40,
-  height: 40,
-  borderRadius: 5,
 }
 
 const PROFILE_WRAPPER: ViewStyle = {
