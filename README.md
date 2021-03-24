@@ -38,6 +38,17 @@ directory and run the following to start up the app:
 npx react-native run-ios
 ```
 
+### Setting up Environment variables
+
+Create a .env file in the root of the project if it doesn't exist. Add the following lines.
+This will tell the app to connect to our Service API and tenant. If you have your own setup,
+feel free to use that instead.
+
+```
+CRYSTALLIZE_TENANT_IDENTIFIER=furniture
+PUBLIC_SERVICE_API_URL=https://service-api-demo.superfast.shop/api/graphql
+```
+
 [0]: https://img.shields.io/badge/vue-v2-44cc11.svg?style=flat-square
 [1]: https://reactnative.dev/
 [2]: https://img.shields.io/badge/nuxt-latest-44cc11.svg?style=flat-square
