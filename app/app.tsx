@@ -24,7 +24,6 @@ import {
   useNavigationPersistence,
 } from "./navigation"
 import { RootStore, RootStoreProvider, setupRootStore } from "./models"
-import { ToggleStorybook } from "../storybook/toggle-storybook"
 import { Provider, createClient } from "urql"
 
 // This puts screens in a native ViewController or Activity. If you want fully native
@@ -72,17 +71,15 @@ function App() {
   // otherwise, we're ready to render the app
   return (
     <Provider value={client}>
-      <ToggleStorybook>
-        <RootStoreProvider value={rootStore}>
-          <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-            <RootNavigator
-              ref={navigationRef}
-              initialState={initialNavigationState}
-              onStateChange={onNavigationStateChange}
-            />
-          </SafeAreaProvider>
-        </RootStoreProvider>
-      </ToggleStorybook>
+      <RootStoreProvider value={rootStore}>
+        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+          <RootNavigator
+            ref={navigationRef}
+            initialState={initialNavigationState}
+            onStateChange={onNavigationStateChange}
+          />
+        </SafeAreaProvider>
+      </RootStoreProvider>
     </Provider>
   )
 }

@@ -1,7 +1,7 @@
 import React from "react"
 import { View, ViewStyle, Text, TextStyle, FlatList, Dimensions, Alert } from "react-native"
 import { CartItem } from "./cartItem"
-import { AddToCartButton } from "../../../components/button/add-to-cart"
+import { LargeButton } from "../../../components/button/large-button"
 import { useNavigation } from "@react-navigation/native"
 
 export function ShoppingCartList({ basket, itemStyle }) {
@@ -46,7 +46,7 @@ export function ShoppingCart({ basket }: any) {
         )}
 
         <View style={CART_BUTTON_CONTAINER}>
-          <AddToCartButton
+          <LargeButton
             label="Go to Checkout"
             action={() => {
               navigation.navigate("checkout")

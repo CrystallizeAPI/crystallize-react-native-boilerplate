@@ -1,6 +1,6 @@
 import React from "react"
-import { View, ViewStyle } from "react-native"
-import { Screen, Text } from "../../components"
+import { ViewStyle } from "react-native"
+import { Screen } from "../../components/screen/screen"
 import { color } from "../../theme"
 import { useQuery } from "urql"
 import { CategoryQuery } from "../../queries/category"
@@ -25,8 +25,6 @@ export const RenderScreen = ({ route }) => {
   const { children } = document
   const { components } = document
   const stacks = components?.find((c) => c.name === "Stackable content")?.content?.items
-
-  // console.log("stack ->", stacks)
 
   return (
     <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>

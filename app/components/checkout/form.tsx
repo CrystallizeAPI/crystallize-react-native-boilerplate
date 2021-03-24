@@ -1,12 +1,12 @@
 import React from "react"
-import { ViewStyle, TextStyle, View, Text } from "react-native"
+import { ViewStyle, TextStyle, Image, ImageStyle, View, Text } from "react-native"
 
 import stripe from "tipsi-stripe"
-import Button from "../checkout/button"
 import { useBasket } from "../../components/basket"
 import ServiceApi from "../../lib/service-api"
 import { SafeAreaView } from "react-navigation"
 import { ShoppingCartList } from "../../components/basket/cart/cart"
+import { LargeButton } from "../button/large-button"
 
 export const demoCardFormParameters = {
   // Only iOS support this options
@@ -96,6 +96,7 @@ export default function CardFormScreen() {
         })
         // const success = true
         const { success, orderId } = response.data.paymentProviders.stripe.confirmOrder
+        console.log(response.data, orderId)
         if (success) {
           setPaymentUIState("success")
         } else {
@@ -125,11 +126,7 @@ export default function CardFormScreen() {
         </View>
       )}
 
-      {paymentUIState === "success" && (
-        <View>
-          <Text style={HEADER}>Order Confirmed!</Text>
-        </View>
-      )}
+      {paymentUIState === "success" && <SuccessScreen></SuccessScreen>}
 
       {paymentUIState === "error" && (
         <View>
@@ -140,6 +137,27 @@ export default function CardFormScreen() {
   )
 }
 
+const SuccessScreen = () => {
+  return (
+    <View style={SUCESS_CONTAINER}>
+      <Image style={SUCESS_IMAGE} source={require("../../../assets/confirm-check.png")}></Image>
+      <Text style={HEADER}>Order Confirmed!</Text>
+    </View>
+  )
+}
+
+const SUCESS_IMAGE: ImageStyle = {
+  width: 100,
+  height: 100,
+}
+
+const SUCESS_CONTAINER: ViewStyle = {
+  flex: 1,
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+}
+
 const PayWithCardScreen = ({ basket, loading, handleCardPayPress }) => {
   const [cartCount, setCartCount] = React.useState(0)
   React.useEffect(() => {
@@ -148,21 +166,24 @@ const PayWithCardScreen = ({ basket, loading, handleCardPayPress }) => {
       c = c >= 99 ? `${c}+` : c.toString()
       setCartCount(c)
     }
-  }, [])
+  }, [basket.cart])
   return (
     <View>
       <Text style={HEADER}>You have {cartCount} items in Cart</Text>
       <ShoppingCartList itemStyle={ITEM} basket={basket} />
       <SafeAreaView>
-        <Button text="Pay with Card" loading={loading} onPress={handleCardPayPress} />
+        <LargeButton
+          label="Pay with Card"
+          iconType="card"
+          loading={loading}
+          action={handleCardPayPress}
+        />
       </SafeAreaView>
     </View>
   )
 }
 
-const ITEM: ViewStyle = {
-  backgroundColor: "red",
-}
+const ITEM: ViewStyle = {}
 
 const CONTAINER: ViewStyle = {
   flex: 1,

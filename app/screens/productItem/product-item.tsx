@@ -3,10 +3,9 @@ import { View, ViewStyle, Text, TextStyle, SafeAreaView } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { observer } from "mobx-react-lite"
 
-import { TouchableOpacity } from "react-native-gesture-handler"
 import { ImageHeaderScrollView, TriggeringView } from "react-native-image-header-scroll-view"
 import { useBasket } from "../../components/basket/index"
-import { AddToCartButton } from "../../components/button/add-to-cart"
+import { LargeButton } from "../../components/button/large-button"
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
 
 import { ProductTableContent } from "../../components/product/table-content"
@@ -67,6 +66,14 @@ export const ProductItemScreen = observer(function ProductScreen(props) {
     )
   }
 
+  const ProductContentComponent = () => {
+    return <ProductContent data={data} />
+  }
+
+  const ProductTableComponent = () => {
+    return <ProductTableContent data={data} />
+  }
+
   return (
     <>
       <ImageHeaderScrollView
@@ -80,15 +87,15 @@ export const ProductItemScreen = observer(function ProductScreen(props) {
         <View style={PRODUCT_BODY}>
           <TriggeringView>
             <Tab.Navigator>
-              <Tab.Screen name={"Product"} component={() => <ProductContent data={data} />} />
-              <Tab.Screen name={"Table"} component={() => <ProductTableContent data={data} />} />
+              <Tab.Screen name={"Product"} component={ProductContentComponent} />
+              <Tab.Screen name={"Information"} component={ProductTableComponent} />
             </Tab.Navigator>
           </TriggeringView>
         </View>
       </ImageHeaderScrollView>
       <SafeAreaView>
         <View style={CART_BUTTON_CONTAINER}>
-          <AddToCartButton label="Add to Cart" action={AddToCart}></AddToCartButton>
+          <LargeButton label="Add to Cart" action={AddToCart}></LargeButton>
         </View>
       </SafeAreaView>
     </>

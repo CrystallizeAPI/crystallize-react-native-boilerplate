@@ -1,6 +1,6 @@
 import React from "react"
 import { View, ViewStyle, TouchableOpacity } from "react-native"
-import { Screen } from "../../components"
+import { Screen } from "../../components/screen/screen"
 import { color } from "../../theme"
 
 export const SkeletonProductProducts = () => {
