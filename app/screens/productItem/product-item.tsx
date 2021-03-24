@@ -16,8 +16,9 @@ const Tab = createMaterialTopTabNavigator()
 
 export const ProductItemScreen = observer(function ProductScreen(props) {
   const [image, setImage] = React.useState(undefined)
-  const [sku, setSku] = React.useState([])
-  const [path, setPath] = React.useState([])
+  const [variants, setVarients] = React.useState(undefined)
+  const [selectedVarient, setSelectedVarient] = React.useState(undefined)
+  const [item, setItem] = React.useState(undefined)
   const navigation = useNavigation()
 
   const params = props.route.params
@@ -25,29 +26,26 @@ export const ProductItemScreen = observer(function ProductScreen(props) {
 
   const basket = useBasket()
 
-  React.useEffect(() => {}, [basket.cart])
-
   const AddToCart = () => {
-    basket.actions.addItem({
-      sku: sku,
-      path: path,
-      key: path,
-    })
-    navigation.openDrawer()
+    // if (item) {
+    //   basket.actions.addItem(item)
+    //   navigation.openDrawer()
+    // }
   }
 
   React.useEffect(() => {
     if (params !== undefined) {
-      const { name, variants } = data
+      const { variants } = data
       const { images, stock, priceVariants } = variants[0]
       const displayImage = images[0]?.url
       const sku = variants[0].sku
 
-      const currency = priceVariants.find((c) => c.currency === "EUR")
-      const isInStock = stock > 0
+      setItem({
+        sku: sku,
+        path: data.path,
+        key: data.path,
+      })
 
-      setSku(sku)
-      setPath(data.path)
       setImage(displayImage)
     }
   }, [params])
