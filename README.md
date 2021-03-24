@@ -38,12 +38,6 @@ directory and run the following to start up the app:
 npx react-native run-ios
 ```
 
-### Deploying with [Vercel][20]
-
-- Register a Vercel account
-- Install vercel `yarn global add vercel` or `npm i -g vercel`
-- Run `vercel`
-
 [0]: https://img.shields.io/badge/vue-v2-44cc11.svg?style=flat-square
 [1]: https://reactnative.dev/
 [2]: https://img.shields.io/badge/nuxt-latest-44cc11.svg?style=flat-square

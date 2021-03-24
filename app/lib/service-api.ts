@@ -1,5 +1,4 @@
-const PUBLIC_SERVICE_API_URL = "http://localhost:3001/api/graphql"
-
+import { PUBLIC_SERVICE_API_URL } from "@env"
 interface serviceAPIProps {
   uri?: string
   query: string

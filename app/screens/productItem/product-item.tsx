@@ -11,6 +11,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { ProductTableContent } from "../../components/product/table-content"
 import { ProductContent } from "../../components/product/product-content"
 import { IconButton } from "../../components/IconButton/IconButton"
+import { CRYSTALLIZE_TENANT_IDENTIFIER } from "@env"
 
 const Tab = createMaterialTopTabNavigator()
 
