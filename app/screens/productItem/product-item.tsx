@@ -27,10 +27,10 @@ export const ProductItemScreen = observer(function ProductScreen(props) {
   const basket = useBasket()
 
   const AddToCart = () => {
-    // if (item) {
-    //   basket.actions.addItem(item)
-    //   navigation.openDrawer()
-    // }
+    if (item) {
+      basket.actions.addItem(item)
+      navigation.openDrawer()
+    }
   }
 
   React.useEffect(() => {
@@ -78,7 +78,7 @@ export const ProductItemScreen = observer(function ProductScreen(props) {
         maxHeight={300}
         minHeight={0}
         headerImage={{
-          uri: image === undefined ? "https://source.unsplash.com/random/400x300" : image,
+          uri: image || "https://source.unsplash.com/random/400x300",
         }}
         renderForeground={() => <HeaderImage />}
       >
@@ -121,8 +121,4 @@ const BUTTON_BACK: ViewStyle = {
   left: 5,
   zIndex: 10,
   borderRadius: 10,
-}
-
-const TEXT_STYLE: TextStyle = {
-  color: "#000",
 }

@@ -1,145 +1,67 @@
-# Welcome to your new ignited app!
+# Crystallize React Native Boilerplate (Beta)
 
-[![CircleCI](https://circleci.com/gh/infinitered/ignite.svg?style=svg)](https://circleci.com/gh/infinitered/ignite)
+Storefront for the
+[headless ecommerce][8] & GraphQL based [product Information Management][9]
+service [Crystallize][10]. [Vue commerce with Nuxt.js][11].
 
-## The latest and greatest boilerplate for Infinite Red opinions
+This React Native Boilerplate gives you a head start when building a [React Native
+ecommerce app][11]. You can have rich ecommerce content with the super structured [PIM][13] engine in
+Crystallize powering your product catalogue.
 
-This is the boilerplate that [Infinite Red](https://infinite.red) uses as a way to test bleeding-edge changes to our React Native stack.
+Note: The boilerplate is currently work in progress, but you can already load products and marketing content.
 
-Currently includes:
+Check it out, the boilerplate is Open Source and MIT licensed.
 
-- React Native
-- React Navigation
-- MobX State Tree
-- TypeScript
-- And more!
+## Prerequisite
 
-## Quick Start
+- You need to have the latest version of Xcode installed
+- You need to download the iPhone 11 simulator via Xcode
 
-The Ignite boilerplate project's structure will look similar to this:
+## Getting Started with the CLI
 
-```
-ignite-project
-├── app
-│   ├── components
-│   ├── i18n
-│   ├── utils
-│   ├── models
-│   ├── navigation
-│   ├── screens
-│   ├── services
-│   ├── theme
-│   ├── app.tsx
-├── storybook
-│   ├── views
-│   ├── index.ts
-│   ├── storybook-registry.ts
-│   ├── storybook.ts
-│   ├── toggle-storybook.tsx
-├── test
-│   ├── __snapshots__
-│   ├── storyshots.test.ts.snap
-│   ├── mock-i18n.ts
-│   ├── mock-reactotron.ts
-│   ├── setup.ts
-│   ├── storyshots.test.ts
-├── README.md
-├── android
-│   ├── app
-│   ├── build.gradle
-│   ├── gradle
-│   ├── gradle.properties
-│   ├── gradlew
-│   ├── gradlew.bat
-│   ├── keystores
-│   └── settings.gradle
-├── ignite
-│   ├── ignite.json
-│   └── plugins
-├── index.js
-├── ios
-│   ├── IgniteProject
-│   ├── IgniteProject-tvOS
-│   ├── IgniteProject-tvOSTests
-│   ├── IgniteProject.xcodeproj
-│   └── IgniteProjectTests
-├── .env
-└── package.json
+You can use [Crystallize CLI][17] to bootstrap a project with this
+`React Native` boilerplate.
 
+Simply run the following command (>= Node 8 required):
+
+```sh
+npx @crystallize/cli@beta my-project
 ```
 
-### ./app directory
+This will walk you through the steps of specifying your tenant, choosing the
+template (React Native).
 
-Included in an Ignite boilerplate project is the `app` directory. This is a directory you would normally have to create when using vanilla React Native.
+Once your project has been created, you can simply navigate into your project's
+directory and run the following to start up the app:
 
-The inside of the src directory looks similar to the following:
-
-```
-app
-│── components
-│── i18n
-├── models
-├── navigation
-├── screens
-├── services
-├── theme
-├── utils
-└── app.tsx
+```sh
+npx react-native run-ios
 ```
 
-**components**
-This is where your React components will live. Each component will have a directory containing the `.tsx` file, along with a story file, and optionally `.presets`, and `.props` files for larger components. The app will come with some commonly used components like Button.
+### Deploying with [Vercel][20]
 
-**i18n**
-This is where your translations will live if you are using `react-native-i18n`.
+- Register a Vercel account
+- Install vercel `yarn global add vercel` or `npm i -g vercel`
+- Run `vercel`
 
-**models**
-This is where your app's models will live. Each model has a directory which will contain the `mobx-state-tree` model file, test file, and any other supporting files like actions, types, etc.
-
-**navigation**
-This is where your `react-navigation` navigators will live.
-
-**screens**
-This is where your screen components will live. A screen is a React component which will take up the entire screen and be part of the navigation hierarchy. Each screen will have a directory containing the `.tsx` file, along with any assets or other helper files.
-
-**services**
-Any services that interface with the outside world will live here (think REST APIs, Push Notifications, etc.).
-
-**theme**
-Here lives the theme for your application, including spacing, colors, and typography.
-
-**utils**
-This is a great place to put miscellaneous helpers and utilities. Things like date helpers, formatters, etc. are often found here. However, it should only be used for things that are truely shared across your application. If a helper or utility is only used by a specific component or model, consider co-locating your helper with that component or model.
-
-**app.tsx** This is the entry point to your app. This is where you will find the main App component which renders the rest of the application.
-
-### ./ignite directory
-
-The `ignite` directory stores all things Ignite, including CLI and boilerplate items. Here you will find generators, plugins and examples to help you get started with React Native.
-
-### ./storybook directory
-
-This is where your stories will be registered and where the Storybook configs will live.
-
-### ./test directory
-
-This directory will hold your Jest configs and mocks, as well as your [storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) test file. This is a file that contains the snapshots of all your component storybooks.
-
-## Running Storybook
-
-From the command line in your generated app's root directory, enter `yarn run storybook`
-This starts up the storybook server and opens a story navigator in your browser. With your app
-running, choose Toggle Storybook from the developer menu to switch to Storybook; you can then
-use the story navigator in your browser to change stories.
-
-For Visual Studio Code users, there is a handy extension that makes it easy to load Storybook use cases into a running emulator via tapping on items in the editor sidebar. Install the `React Native Storybook` extension by `Orta`, hit `cmd + shift + P` and select "Reconnect Storybook to VSCode". Expand the STORYBOOK section in the sidebar to see all use cases for components that have `.story.tsx` files in their directories.
-
-## Running e2e tests
-
-Read [e2e setup instructions](./e2e/README.md).
-
-## Previous Boilerplates
-
-- [2018 aka Bowser](https://github.com/infinitered/ignite-bowser)
-- [2017 aka Andross](https://github.com/infinitered/ignite-andross)
-- [2016 aka Ignite 1.0](https://github.com/infinitered/ignite-ir-boilerplate-2016)
+[0]: https://img.shields.io/badge/vue-v2-44cc11.svg?style=flat-square
+[1]: https://reactnative.dev/
+[2]: https://img.shields.io/badge/nuxt-latest-44cc11.svg?style=flat-square
+[3]: https://reactnative.dev/
+[4]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
+[5]: https://github.com/prettier/prettier
+[6]: https://img.shields.io/badge/code_linter-eslint-463fd4.svg?style=flat-square
+[7]: https://github.com/prettier/prettier
+[8]: https://crystallize.com/product
+[9]: https://crystallize.com/product/product-information-management
+[10]: https://crystallize.com
+[11]: https://crystallize.com/developers
+[12]: https://crystallize.com/blog/frontend-performance-measuring-kpis
+[13]: https://crystallize.com/product/product-information-management
+[14]: https://crystallize.com/blog/ecommerce-seo-checklist
+[15]: https://crystallize.com/blog/content-rich-storytelling-makes-juicy-ecommerce
+[16]: https://snowball.digital/blog/content-strategy-for-exponential-growth-marketing
+[17]: https://github.com/crystallizeapi/crystallize-cli
+[20]: https://vercel.com
+[21]: https://img.shields.io/static/v1?label=Slack&logo=slack&message=Crystallize%20Community&color=68d1b7
+[22]: https://crystallizecommunity.slack.com
