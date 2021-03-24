@@ -1,5 +1,14 @@
 import React from "react"
-import { View, ViewStyle, Text, TextStyle, Image, ImageStyle, TouchableOpacity } from "react-native"
+import {
+  View,
+  ViewStyle,
+  Text,
+  TextStyle,
+  Image,
+  ImageStyle,
+  TouchableOpacity,
+  FlatList,
+} from "react-native"
 import { ParagraphContent } from "./paragraph-content"
 
 export const ProductContent = ({ data }) => {
@@ -32,7 +41,6 @@ export const ProductContent = ({ data }) => {
       <Text style={TEXT_HEADING}>{name}</Text>
       <Text style={PARA_TEXT_PARAGRAPH}>{description}</Text>
       <VariantsComponent data={variantItems}></VariantsComponent>
-
       <ParagraphContent data={paragraph}></ParagraphContent>
     </View>
   )
@@ -40,21 +48,32 @@ export const ProductContent = ({ data }) => {
 
 const VariantsComponent = ({ data }) => {
   const [selectedVariant, setSelectedVariant] = React.useState(undefined)
+
+  React.useEffect(() => {
+    const firstVariant = data[0].id
+    setSelectedVariant(firstVariant)
+  }, [])
+
   return (
     <View style={VARIANTS}>
-      {data.map((variant) => {
-        console.log("th->", variant)
-        const isActiveStyle = selectedVariant === variant.id ? ACTIVE : INACTIVE
+      <FlatList
+        keyExtractor={(item) => item.id}
+        showsHorizontalScrollIndicator={false}
+        horizontal={true}
+        data={data}
+        renderItem={({ item }) => {
+          const isActiveStyle = selectedVariant === item.id ? ACTIVE : INACTIVE
 
-        return (
-          <TouchableOpacity key={variant.id} onPress={() => setSelectedVariant(variant.id)}>
-            <Image
-              source={{ uri: variant.images[0] }}
-              style={{ ...VARIANT, ...isActiveStyle }}
-            ></Image>
-          </TouchableOpacity>
-        )
-      })}
+          return (
+            <TouchableOpacity key={item.id} onPress={() => setSelectedVariant(item.id)}>
+              <Image
+                source={{ uri: item.images[0] }}
+                style={{ ...VARIANT, ...isActiveStyle }}
+              ></Image>
+            </TouchableOpacity>
+          )
+        }}
+      ></FlatList>
     </View>
   )
 }
@@ -70,6 +89,7 @@ const INACTIVE: ImageStyle = {
 const VARIANTS: ViewStyle = {
   display: "flex",
   flexDirection: "row",
+  marginTop: 20,
 }
 
 const VARIANT: ImageStyle = {
@@ -78,6 +98,7 @@ const VARIANT: ImageStyle = {
   marginRight: 10,
   borderRadius: 10,
   borderWidth: 2,
+  backgroundColor: "#fff",
 }
 
 const PRODUCT_CONTENT: ViewStyle = {

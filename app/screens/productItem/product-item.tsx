@@ -11,6 +11,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { ProductTableContent } from "../../components/product/table-content"
 import { ProductContent } from "../../components/product/product-content"
 import { IconButton } from "../../components/IconButton/IconButton"
+import { CRYSTALLIZE_TENANT_IDENTIFIER } from "@env"
 
 const Tab = createMaterialTopTabNavigator()
 
@@ -27,10 +28,10 @@ export const ProductItemScreen = observer(function ProductScreen(props) {
   const basket = useBasket()
 
   const AddToCart = () => {
-    // if (item) {
-    //   basket.actions.addItem(item)
-    //   navigation.openDrawer()
-    // }
+    if (item) {
+      basket.actions.addItem(item)
+      navigation.openDrawer()
+    }
   }
 
   React.useEffect(() => {
@@ -78,7 +79,7 @@ export const ProductItemScreen = observer(function ProductScreen(props) {
         maxHeight={300}
         minHeight={0}
         headerImage={{
-          uri: image === undefined ? "https://source.unsplash.com/random/400x300" : image,
+          uri: image || "https://source.unsplash.com/random/400x300",
         }}
         renderForeground={() => <HeaderImage />}
       >
@@ -121,8 +122,4 @@ const BUTTON_BACK: ViewStyle = {
   left: 5,
   zIndex: 10,
   borderRadius: 10,
-}
-
-const TEXT_STYLE: TextStyle = {
-  color: "#000",
 }

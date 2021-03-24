@@ -1,7 +1,5 @@
 import { simplyFetchFromGraph } from "./simply-fetch-from-graph"
-// import { CRYSTALLIZE_TENANT_IDENTIFIER } from "env"
-
-const CRYSTALLIZE_TENANT_IDENTIFIER = "furniture"
+import { CRYSTALLIZE_TENANT_IDENTIFIER } from "@env"
 
 export function simplyFetchFromSearchGraph(args) {
   return simplyFetchFromGraph({

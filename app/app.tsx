@@ -25,6 +25,7 @@ import {
 } from "./navigation"
 import { RootStore, RootStoreProvider, setupRootStore } from "./models"
 import { Provider, createClient } from "urql"
+import { CRYSTALLIZE_TENANT_IDENTIFIER } from "@env"
 
 // This puts screens in a native ViewController or Activity. If you want fully native
 // stack navigation, use `createNativeStackNavigator` in place of `createStackNavigator`:
@@ -33,8 +34,6 @@ import { enableScreens } from "react-native-screens"
 enableScreens()
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
-
-const CRYSTALLIZE_TENANT_IDENTIFIER = "furniture"
 
 const client = createClient({
   url: `https://api.crystallize.com/${CRYSTALLIZE_TENANT_IDENTIFIER}/catalogue`,

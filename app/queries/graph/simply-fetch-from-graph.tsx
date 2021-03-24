@@ -1,8 +1,4 @@
-// import { CRYSTALLIZE_TENANT_IDENTIFIER } from "env"
-
-import { string } from "mobx-state-tree/dist/internal"
-
-const CRYSTALLIZE_TENANT_IDENTIFIER = "furniture"
+import { CRYSTALLIZE_TENANT_IDENTIFIER } from "@env"
 
 interface types {
   uri?: string
