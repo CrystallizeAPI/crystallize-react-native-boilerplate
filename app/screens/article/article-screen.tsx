@@ -1,40 +1,32 @@
 import React from "react"
-import { View, ViewStyle, Image, ImageStyle, TextStyle, Button, SafeAreaView } from "react-native"
+import { View, ViewStyle, Text, TextStyle } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { observer } from "mobx-react-lite"
-import { Header, Screen, Text, Wallpaper } from "../../components"
-import { color, spacing, typography } from "../../theme"
 
-import { TouchableOpacity } from "react-native-gesture-handler"
 import { ImageHeaderScrollView, TriggeringView } from "react-native-image-header-scroll-view"
-
-export const BackButton = () => {
-  const navigation = useNavigation()
-  const homeScreen = () => navigation.navigate("welcome")
-
-  return (
-    <View style={BUTTON_BACK}>
-      <TouchableOpacity onPress={homeScreen}>
-        <Text style={TEXT_STYLE}>back</Text>
-      </TouchableOpacity>
-    </View>
-  )
-}
+import { IconButton } from "../../components/IconButton/IconButton"
 
 export const ArticleScreen = observer(function Article() {
-  function RenderHeaderImage() {
+  const navigation = useNavigation()
+  function goBack() {
+    navigation.goBack()
+  }
+  const HeaderImage = () => {
     return (
       <View style={PRODUCT_BG_IMAGE}>
-        <BackButton></BackButton>
+        <View style={BUTTON_BACK}>
+          <IconButton name={"back"} action={goBack}></IconButton>
+        </View>
       </View>
     )
   }
+
   return (
     <ImageHeaderScrollView
       maxHeight={250}
       minHeight={0}
       headerImage={{ uri: "https://source.unsplash.com/random/500x400/?sofa" }}
-      renderForeground={() => <RenderHeaderImage />}
+      renderForeground={() => <HeaderImage />}
     >
       <View style={PRODUCT_BODY}>
         <TriggeringView>
@@ -81,21 +73,15 @@ const PRODUCT_CONTENT: ViewStyle = {
 
 const BUTTON_BACK: ViewStyle = {
   position: "absolute",
-  backgroundColor: "#fff",
-  top: 80,
-  left: 16,
-  padding: 20,
+  top: 60,
+  left: 5,
   zIndex: 10,
   borderRadius: 10,
 }
 
-const TEXT_STYLE: TextStyle = {
-  color: "#000",
-}
-
 const TEXT_HEADING: TextStyle = {
   color: "#000",
-  fontSize: 30,
+  fontSize: 34,
   fontWeight: "bold",
   marginTop: 4,
   marginBottom: 4,
@@ -104,7 +90,7 @@ const TEXT_HEADING: TextStyle = {
 const TEXT_PARAGRAPH: TextStyle = {
   color: "rgba(0, 0, 0, 0.62)",
   fontSize: 20,
-  lineHeight: 34,
+  lineHeight: 38,
   marginTop: 4,
   marginBottom: 4,
 }

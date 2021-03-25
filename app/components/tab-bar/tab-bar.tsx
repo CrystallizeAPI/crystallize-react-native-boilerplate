@@ -3,7 +3,6 @@ import { View, ViewStyle, TextStyle, TouchableOpacity, Text, FlatList } from "re
 import Animated from "react-native-reanimated"
 
 export function CategoryTabBar({ state, descriptors, navigation, position }) {
-  // console.log("position ->", position)
   return (
     <View style={TAB_BAR_CONTAINER}>
       {state.routes.map((route, index) => {

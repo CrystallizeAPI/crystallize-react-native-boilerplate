@@ -6,7 +6,7 @@
  */
 import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
-import { WelcomeScreen, DemoScreen } from "../screens"
+import { HomeScreen } from "../screens"
 import { ProductItemScreen } from "../screens/productItem/product-item"
 import { ArticleScreen } from "../screens/article/article-screen"
 import { CheckoutScreen } from "../screens/checkout/checkout"
@@ -29,11 +29,10 @@ import { Dimensions } from "react-native"
  *   https://reactnavigation.org/docs/typescript#type-checking-the-navigator
  */
 export type PrimaryParamList = {
-  welcome: undefined
+  home: undefined
   productItem: undefined
   article: undefined
   checkout: undefined
-  // cart: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -47,7 +46,7 @@ function HomeNavigation() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="welcome" component={WelcomeScreen} />
+      <Stack.Screen name="home" component={HomeScreen} />
       <Stack.Screen name="productItem" component={ProductItemScreen} />
       <Stack.Screen name="article" component={ArticleScreen} />
       <Stack.Screen name="checkout" component={CheckoutScreen} />

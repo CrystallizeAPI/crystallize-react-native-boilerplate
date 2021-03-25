@@ -9,16 +9,7 @@ export const demoCardFormParameters = {
   smsAutofillDisabled: true,
   requiredBillingAddressFields: "full",
   prefilledInformation: {
-    billingAddress: {
-      name: "Joel",
-      line1: "Canary Place",
-      line2: "3",
-      city: "Macon",
-      state: "Georgia",
-      country: "US",
-      postalCode: "31217",
-      email: "joel@crystallize.com",
-    },
+    billingAddress: {},
   },
 }
 
@@ -98,7 +89,6 @@ export function useStripeCheckout() {
         },
       })
       const { success, orderId } = response.data.paymentProviders.stripe.confirmOrder
-      console.log(response.data, orderId)
       if (success) {
         setPaymentUIState("success")
       } else {

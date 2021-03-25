@@ -96,13 +96,17 @@ fragment content on ComponentContent {
         id
         name
         content {
-          ...dummyItemFrag
+          ...singleLine
+          ...richText
+          ...imageContent
+          ...paragraphCollection
+          ...contentItems
         }
       }
     }
   }
   
-  fragment dummyItemFrag on ComponentContent {
+  fragment contentItems on ComponentContent {
     ... on ItemRelationsContent {
       items {
         ... on Product {

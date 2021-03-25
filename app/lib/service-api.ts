@@ -1,4 +1,5 @@
-import { PUBLIC_SERVICE_API_URL } from "@env"
+import { SERVICE_API_URL } from "@env"
+
 interface serviceAPIProps {
   uri?: string
   query: string
@@ -6,7 +7,7 @@ interface serviceAPIProps {
 }
 
 export default async function serviceApi({
-  uri = PUBLIC_SERVICE_API_URL,
+  uri = SERVICE_API_URL,
   query,
   variables,
 }: serviceAPIProps) {
