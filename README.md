@@ -25,7 +25,7 @@ You can use [Crystallize CLI][17] to bootstrap a project with this
 Simply run the following command (>= Node 8 required):
 
 ```sh
-npx @crystallize/cli@beta my-project
+npx @crystallize/cli my-project
 ```
 
 This will walk you through the steps of specifying your tenant, choosing the
