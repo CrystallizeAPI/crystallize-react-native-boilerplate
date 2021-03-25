@@ -5,7 +5,7 @@ export const ParagraphContent = ({ data }) => {
   if (data === undefined) {
     return (
       <View>
-        <Text>couldnt render</Text>
+        <Text style={PARA_TEXT_SUBHEADING}>Couldn't render this area</Text>
       </View>
     )
   }

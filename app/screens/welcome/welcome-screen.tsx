@@ -1,7 +1,6 @@
 import React from "react"
 import { View, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
-import { Text } from "../../components"
 
 import { CategoryTabBar } from "../../components/tab-bar/tab-bar"
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
@@ -13,7 +12,7 @@ import { Header } from "../../components/navbar/navbar"
 
 const Tab = createMaterialTopTabNavigator()
 
-export const WelcomeScreen = observer(function WelcomeScreen() {
+export const HomeScreen = observer(function HomeScreen() {
   const [{ data, fetching, error }] = useQuery({
     query: Hquery,
     variables: {
@@ -40,7 +39,5 @@ export const WelcomeScreen = observer(function WelcomeScreen() {
     </View>
   )
 })
-
-// {/* <Tab.Screen key={"shop"} name={"Shop"} component={RenderScreen} /> */}
 
 const FULL: ViewStyle = { flex: 1 }

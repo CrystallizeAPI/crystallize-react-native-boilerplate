@@ -5,7 +5,7 @@ export const ProductTable = ({ data }) => {
   if (data === undefined) {
     return (
       <View>
-        <Text>couldnt render</Text>
+        <Text style={TABLE_HEADING}>Couldn't render this area</Text>
       </View>
     )
   }

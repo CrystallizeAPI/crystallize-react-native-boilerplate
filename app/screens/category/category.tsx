@@ -2,10 +2,8 @@ import React from "react"
 import { View, ViewStyle, Text, TextStyle } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { observer } from "mobx-react-lite"
-import { color, spacing, typography } from "../../theme"
 
 import { TouchableOpacity } from "react-native-gesture-handler"
-import { ImageHeaderScrollView, TriggeringView } from "react-native-image-header-scroll-view"
 
 export const BackButton = () => {
   const navigation = useNavigation()
@@ -35,12 +33,6 @@ export const ProductItemScreen = observer(function ProductScreen() {
     </View>
   )
 })
-
-const PRODUCT_BG_IMAGE: ViewStyle = {
-  backgroundColor: "#f9f9f9",
-  justifyContent: "center",
-  alignItems: "center",
-}
 
 const BUTTON_BACK: ViewStyle = {
   position: "absolute",

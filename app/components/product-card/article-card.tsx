@@ -33,12 +33,17 @@ export const Article = ({ onPress, data }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={ARTICLE_WRAPPER}>
+        {/* {data.components.map((item, i) => {
+          // if (item.id === "title") {
+          //   return <Text> {item.name}</Text>
+          // }
+        })} */}
         <Image
           source={{ uri: "https://source.unsplash.com/random/300x200/?sofas" }}
           style={ARTICLE_ITEM}
         />
         <View style={ARTICLE_OVERLAY}></View>
-        <Text style={ARTICLE_HEADING}>Funky fun couches</Text>
+        <Text style={ARTICLE_HEADING}> Nice couches</Text>
       </View>
     </TouchableOpacity>
   )

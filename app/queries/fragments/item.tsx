@@ -1,4 +1,4 @@
-import { componentContents } from "./componennt-contents"
+import { componentContents } from "./component-contents"
 
 export const HomeQuery = `
   fragment item on Item {
