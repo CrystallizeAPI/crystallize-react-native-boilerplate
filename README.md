@@ -15,6 +15,7 @@ Check it out, the boilerplate is Open Source and MIT licensed.
 ## Prerequisite
 
 - You need to have the latest version of Xcode installed
+- You need to have cocoapods installed
 - You need to download the iPhone 11 simulator via Xcode
 
 ## Getting Started with the CLI
@@ -31,12 +32,27 @@ npx @crystallize/cli my-project
 This will walk you through the steps of specifying your tenant, choosing the
 template (React Native).
 
-Once your project has been created, you can simply navigate into your project's
-directory and run the following to start up the app:
+
+### Running on iOS
+To run the iOS app you need to have Xcode and Cocoapods installed. Once the CLI
+finishes the installation, navigate into your project using the terminal and 
+run the following commands.
+
+```sh
+
+cd ios
+pod install
+cd ..
+
+```
+
+To run the app simply run the following command
 
 ```sh
 npx react-native run-ios
 ```
+
+
 
 ### Setting up Environment variables
 
