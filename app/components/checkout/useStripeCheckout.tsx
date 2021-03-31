@@ -9,7 +9,16 @@ export const demoCardFormParameters = {
   smsAutofillDisabled: true,
   requiredBillingAddressFields: "full",
   prefilledInformation: {
-    billingAddress: {},
+    billingAddress: {
+      name: "Joel",
+      line1: "Canary Place",
+      line2: "3",
+      city: "Macon",
+      state: "Georgia",
+      country: "US",
+      postalCode: "31217",
+      email: "joel@crystallize.com",
+    },
   },
 }
 
@@ -57,10 +66,16 @@ export function useStripeCheckout() {
         },
       })
 
+      console.log("stripe intent -", stripePaymentIntent)
+
       const stripeClientSecret =
         stripePaymentIntent?.data?.paymentProviders?.stripe?.createPaymentIntent?.client_secret
 
+      console.log("stripe secet -", stripeClientSecret)
+
       const confirm = await stripe.confirmPaymentIntent({ clientSecret: stripeClientSecret })
+      console.log("stripe confirm -", confirm)
+
       handleConfirmation(confirm, checkoutModel)
     } catch (error) {
       setLoading(false)
@@ -68,33 +83,45 @@ export function useStripeCheckout() {
   }
 
   const handleConfirmation = async (confirm, checkoutModel) => {
-    if (confirm.status === "succeeded") {
-      const paymentIntentId = confirm.paymentIntentId
-      const response = await ServiceApi({
-        query: `
-              mutation confirmStripeOrder($checkoutModel: CheckoutModelInput!, $paymentIntentId: String!) {
-                paymentProviders {
-                  stripe {
-                    confirmOrder(checkoutModel: $checkoutModel, paymentIntentId: $paymentIntentId) {
-                      success
-                      orderId
+    console.log("in hereee ->>")
+    try {
+      if (confirm.status === "succeeded") {
+        const paymentIntentId = confirm.paymentIntentId
+        const response = await ServiceApi({
+          query: `
+                mutation confirmStripeOrder($checkoutModel: CheckoutModelInput!, $paymentIntentId: String!) {
+                  paymentProviders {
+                    stripe {
+                      confirmOrder(checkoutModel: $checkoutModel, paymentIntentId: $paymentIntentId) {
+                        success
+                        orderId
+                      }
                     }
                   }
                 }
-              }
-            `,
-        variables: {
-          checkoutModel,
-          paymentIntentId: paymentIntentId,
-        },
-      })
-      const { success, orderId } = response.data.paymentProviders.stripe.confirmOrder
-      if (success) {
-        setPaymentUIState("success")
-      } else {
-        setPaymentUIState("error")
+              `,
+          variables: {
+            checkoutModel,
+            paymentIntentId: paymentIntentId,
+          },
+        })
+
+        const data = response?.data
+        console.log("data -", data)
+        if (data) {
+          const { success, orderId } = data?.paymentProviders?.stripe?.confirmOrder
+          console.log("response -", response, success)
+
+          success ? setPaymentUIState("success") : setPaymentUIState("error")
+        } else {
+          setPaymentUIState("error")
+        }
+
+        setLoading(false)
       }
-      setLoading(false)
+    } catch (error) {
+      setPaymentUIState("error")
+      console.log("error -> ", error)
     }
   }
 

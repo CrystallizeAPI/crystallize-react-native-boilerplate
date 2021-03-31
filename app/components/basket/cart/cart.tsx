@@ -38,10 +38,10 @@ export function ShoppingCart({ basket }: any) {
           <Text>Loading...</Text>
         ) : (
           <View>
-            <Text>Total Price - {totalWithoutDiscounts.gross}</Text>
+            {/* <Text>Total Price - {totalWithoutDiscounts.gross}</Text>
             {hasDiscount && <Text>{total.discount * -1}</Text>}
-            <Text>tax - {tax}</Text>
-            <Text>To pay - {total.gross}</Text>
+            <Text>tax - {tax}</Text> */}
+            <Text style={SHOPPING_CART_HEADING}>To pay - €{total.gross}</Text>
           </View>
         )}
 
