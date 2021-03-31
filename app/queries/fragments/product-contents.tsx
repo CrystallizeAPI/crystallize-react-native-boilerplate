@@ -101,6 +101,20 @@ fragment content on ComponentContent {
           ...imageContent
           ...paragraphCollection
           ...contentItems
+          ... on ItemRelationsContent {
+            items {
+              name
+              components {
+                name
+                content {
+                  ...singleLine
+                  ...richText
+                  ...imageContent
+                  ...paragraphCollection
+                }
+              }
+            }
+          }
         }
       }
     }
