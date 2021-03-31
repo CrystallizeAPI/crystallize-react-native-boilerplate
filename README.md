@@ -2,7 +2,9 @@
 
 Storefront for the
 [headless ecommerce][8] & GraphQL based [product Information Management][9]
-service [Crystallize][10]. [Vue commerce with Nuxt.js][11].
+service [Crystallize][10]. [React Native eCommerce][11].
+
+![title](assets/readme-preview.png)
 
 This React Native Boilerplate gives you a head start when building a [React Native
 ecommerce app][11]. You can have rich ecommerce content with the super structured [PIM][13] engine in
@@ -32,10 +34,10 @@ npx @crystallize/cli my-project
 This will walk you through the steps of specifying your tenant, choosing the
 template (React Native).
 
-
 ### Running on iOS
+
 To run the iOS app you need to have Xcode and Cocoapods installed. Once the CLI
-finishes the installation, navigate into your project using the terminal and 
+finishes the installation, navigate into your project using the terminal and
 run the following commands.
 
 ```sh
@@ -52,8 +54,6 @@ To run the app simply run the following command
 npx react-native run-ios
 ```
 
-
-
 ### Setting up Environment variables
 
 Create a .env file in the root of the project if it doesn't exist. Add the following lines.
@@ -65,7 +65,6 @@ CRYSTALLIZE_TENANT_IDENTIFIER=furniture
 PUBLIC_SERVICE_API_URL=https://service-api-demo.superfast.shop/api/graphql
 ```
 
-[0]: https://img.shields.io/badge/vue-v2-44cc11.svg?style=flat-square
 [1]: https://reactnative.dev/
 [2]: https://img.shields.io/badge/nuxt-latest-44cc11.svg?style=flat-square
 [3]: https://reactnative.dev/

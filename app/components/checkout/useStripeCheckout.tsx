@@ -61,6 +61,7 @@ export function useStripeCheckout() {
         stripePaymentIntent?.data?.paymentProviders?.stripe?.createPaymentIntent?.client_secret
 
       const confirm = await stripe.confirmPaymentIntent({ clientSecret: stripeClientSecret })
+
       handleConfirmation(confirm, checkoutModel)
     } catch (error) {
       setLoading(false)
@@ -68,33 +69,42 @@ export function useStripeCheckout() {
   }
 
   const handleConfirmation = async (confirm, checkoutModel) => {
-    if (confirm.status === "succeeded") {
-      const paymentIntentId = confirm.paymentIntentId
-      const response = await ServiceApi({
-        query: `
-              mutation confirmStripeOrder($checkoutModel: CheckoutModelInput!, $paymentIntentId: String!) {
-                paymentProviders {
-                  stripe {
-                    confirmOrder(checkoutModel: $checkoutModel, paymentIntentId: $paymentIntentId) {
-                      success
-                      orderId
+    console.log("in hereee ->>")
+    try {
+      if (confirm.status === "succeeded") {
+        const paymentIntentId = confirm.paymentIntentId
+        const response = await ServiceApi({
+          query: `
+                mutation confirmStripeOrder($checkoutModel: CheckoutModelInput!, $paymentIntentId: String!) {
+                  paymentProviders {
+                    stripe {
+                      confirmOrder(checkoutModel: $checkoutModel, paymentIntentId: $paymentIntentId) {
+                        success
+                        orderId
+                      }
                     }
                   }
                 }
-              }
-            `,
-        variables: {
-          checkoutModel,
-          paymentIntentId: paymentIntentId,
-        },
-      })
-      const { success, orderId } = response.data.paymentProviders.stripe.confirmOrder
-      if (success) {
-        setPaymentUIState("success")
-      } else {
-        setPaymentUIState("error")
+              `,
+          variables: {
+            checkoutModel,
+            paymentIntentId: paymentIntentId,
+          },
+        })
+
+        const data = response?.data
+        if (data) {
+          const { success, orderId } = data?.paymentProviders?.stripe?.confirmOrder
+
+          success ? setPaymentUIState("success") : setPaymentUIState("error")
+        } else {
+          setPaymentUIState("error")
+        }
+
+        setLoading(false)
       }
-      setLoading(false)
+    } catch (error) {
+      setPaymentUIState("error")
     }
   }
 

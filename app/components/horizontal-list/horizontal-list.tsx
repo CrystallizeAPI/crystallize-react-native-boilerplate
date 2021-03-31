@@ -44,13 +44,13 @@ export const HorizontalList = ({ type, data, renderItem }: HorizontalListProps) 
 
       {type === "article" && (
         <FlatList
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.name}
           showsHorizontalScrollIndicator={false}
           horizontal={true}
           data={data}
           renderItem={({ item }) => {
             return React.createElement(renderItem, {
-              id: item.id,
+              id: item.name,
               onPress: articleScreen,
               item: item,
             })

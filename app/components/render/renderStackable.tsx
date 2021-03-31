@@ -11,7 +11,6 @@ import { Article } from "../../components/product-card/article-card"
 export const Render = ({ data }) => {
   const navigation = useNavigation()
   const productScreen = () => navigation.navigate("productItem")
-  const articleScreen = () => navigation.navigate("article")
 
   if (data === undefined) return <View></View>
 
@@ -41,7 +40,7 @@ export const Render = ({ data }) => {
           return <ProductItem key={key} onPress={productScreen} data={item} />
         }
         if (item.__typename === "Document") {
-          return <Article key={key} onPress={articleScreen} data={item} />
+          return <Article key={key} data={item} />
         }
         if (item.__typename === "list") {
           return (

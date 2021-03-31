@@ -1,12 +1,13 @@
 import React from "react"
-import { View, ViewStyle, Text, TextStyle } from "react-native"
+import { View, ViewStyle, TextStyle } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { observer } from "mobx-react-lite"
 
 import { ImageHeaderScrollView, TriggeringView } from "react-native-image-header-scroll-view"
 import { IconButton } from "../../components/IconButton/IconButton"
+import { ParagraphContent } from "../../components/product/paragraph-content"
 
-export const ArticleScreen = observer(function Article() {
+export const ArticleScreen = observer(function Article(props) {
   const navigation = useNavigation()
   function goBack() {
     navigation.goBack()
@@ -21,32 +22,20 @@ export const ArticleScreen = observer(function Article() {
     )
   }
 
+  const data = props?.route.params?.content
+  const image = props?.route.params?.image
+
   return (
     <ImageHeaderScrollView
       maxHeight={250}
       minHeight={0}
-      headerImage={{ uri: "https://source.unsplash.com/random/500x400/?sofa" }}
+      headerImage={{ uri: image?.url }}
       renderForeground={() => <HeaderImage />}
     >
       <View style={PRODUCT_BODY}>
         <TriggeringView>
           <View style={PRODUCT_CONTENT}>
-            <Text style={TEXT_HEADING}>How to Buy a Sofa that Lasts</Text>
-            <Text style={TEXT_PARAGRAPH}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-              do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit
-              amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt lorem ipsum dolor
-              sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum
-              dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            </Text>
+            <ParagraphContent data={data}></ParagraphContent>
           </View>
         </TriggeringView>
       </View>
