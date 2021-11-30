@@ -179,14 +179,6 @@ fragment content on ComponentContent {
           url
         }
       }
-      subscriptionPlans {
-        id
-        name
-        initialPeriod
-        initialPrice
-        recurringPeriod
-        recurringPrice
-      }
     }
     vatType {
       name
