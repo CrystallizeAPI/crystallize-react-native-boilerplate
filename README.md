@@ -1,5 +1,13 @@
 # Crystallize React Native Boilerplate (Beta)
 
+----
+
+This repository is what we call a "subtree split": a read-only copy of one directory of the main repository. 
+
+If you want to report or contribute, you should do it on the main repository: https://github.com/CrystallizeAPI/boilerplates
+
+----
+
 Storefront for the
 [headless ecommerce][8] & GraphQL based [product Information Management][9]
 service [Crystallize][10]. [React Native eCommerce][11].
